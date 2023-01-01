@@ -1,5 +1,11 @@
+# Xsettings
+xsettingsd &
+
 # Disable beep
 xset -b
+
+# Set keyboad layout
+setxkbmap -layout de
 
 # Change caps to escape
 setxkbmap -option caps:escape &
@@ -10,14 +16,8 @@ nitrogen --restore &
 # Compositor
 picom &
 
-# Polybar
-# polybar -r bar &
-
 #Network Manager
 nm-applet &
-
-# Xsettings
-xsettingsd &
 
 # Notification Manager
 dunst &
