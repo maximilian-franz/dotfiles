@@ -1,0 +1,171 @@
+format = """
+[](background_2)\
+$os\
+$username\
+[](bg:background_3 fg:background_2)\
+$directory\
+[](fg:background_3 bg:background_4)\
+$git_branch\
+$git_status\
+[](fg:background_4 bg:foreground_4)\
+$c\
+$elixir\
+$elm\
+$golang\
+$haskell\
+$java\
+$julia\
+$nodejs\
+$nim\
+$rust\
+$scala\
+[](fg:foreground_4 bg:foreground_3)\
+$docker_context\
+[](fg:foreground_3 bg:foreground_2)\
+$time\
+[ ](fg:foreground_2)\
+"""
+
+palette = "gruvbox"
+
+[palettes.gruvbox]
+background = "#282828"
+background_hard = "#1D2021"
+background_soft = "#32302F"
+background_1 = "#3C3836"
+background_2 = "#504945"
+background_3 = "#665C54"
+background_4 = "#7C6F64"
+foreground = "#EBDBB2"
+foreground_hard = "#FBF1C7"
+foreground_soft = "#FBF1C7"
+foreground_1 = "#EBDBB2"
+foreground_2 = "#D5C4A1"
+foreground_3 = "#BDAE93"
+foreground_4 = "#A89984"
+red_hard = "#CC241D"
+red_soft = "#FB4934"
+green_hard = "#98971A"
+green_soft = "#B8BB26"
+yellow_hard = "#D79921"
+yellow_soft = "#FABD2F"
+blue_hard = "#458588"
+blue_soft = "#83A598"
+purple_hard = "#B16286"
+purple_soft = "#D3869B"
+aqua_hard = "#689D6A"
+aqua_soft = "#8EC07C"
+orange_hard = "#D65D0E"
+orange_soft = "#FE8019"
+
+# Disable the blank line at the start of the prompt
+# add_newline = false
+
+# You can also replace your username with a neat symbol like   or disable this
+# and use the os module below
+[username]
+show_always = true
+style_user = "bg:background_2"
+style_root = "bg:background_2"
+format = '[$user ]($style)'
+disabled = false
+
+# An alternative to the username module which displays a symbol that
+# represents the current operating system
+[os]
+style = "bg:background_2"
+disabled = true # Disabled by default
+
+[directory]
+style = "bg:background_3"
+format = "[ $path ]($style)"
+truncation_length = 3
+truncation_symbol = "…/"
+
+# Here is how you can shorten some long paths by text replacement
+# similar to mapped_locations in Oh My Posh:
+[directory.substitutions]
+"Documents" = " "
+"Downloads" = " "
+"Music" = " "
+"Pictures" = " "
+# Keep in mind that the order matters. For example:
+# "Important Documents" = "  "
+# will not be replaced, because "Documents" was already substituted before.
+# So either put "Important Documents" before "Documents" or use the substituted version:
+# "Important  " = "  "
+
+[c]
+symbol = " "
+style = "bg:foreground_4"
+format = '[ $symbol ($version) ]($style)'
+
+[docker_context]
+symbol = " "
+style = "bg:foreground_3"
+format = '[ $symbol $context ]($style) $path'
+
+[elixir]
+symbol = " "
+style = "bg:foreground_4"
+format = '[ $symbol ($version) ]($style)'
+
+[elm]
+symbol = " "
+style = "bg:foreground_4"
+format = '[ $symbol ($version) ]($style)'
+
+[git_branch]
+symbol = ""
+style = "bg:background_4"
+format = '[ $symbol $branch ]($style)'
+
+[git_status]
+style = "bg:background_4"
+format = '[$all_status$ahead_behind ]($style)'
+
+[golang]
+symbol = " "
+style = "bg:foreground_4"
+format = '[ $symbol ($version) ]($style)'
+
+[haskell]
+symbol = " "
+style = "bg:foreground_4"
+format = '[ $symbol ($version) ]($style)'
+
+[java]
+symbol = " "
+style = "bg:foreground_4"
+format = '[ $symbol ($version) ]($style)'
+
+[julia]
+symbol = " "
+style = "bg:foreground_4"
+format = '[ $symbol ($version) ]($style)'
+
+[nodejs]
+symbol = ""
+style = "bg:foreground_4"
+format = '[ $symbol ($version) ]($style)'
+
+[nim]
+symbol = " "
+style = "bg:foreground_4"
+format = '[ $symbol ($version) ]($style)'
+
+[rust]
+symbol = ""
+style = "bg:foreground_4"
+format = '[ $symbol ($version) ]($style)'
+
+[scala]
+symbol = " "
+style = "bg:foreground_4"
+format = '[ $symbol ($version) ]($style)'
+
+[time]
+disabled = false
+time_format = "%R" # Hour:Minute Format
+style = "bg:foreground_2 fg:background_soft"
+format = '[ $time ]($style)'

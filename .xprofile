@@ -1,0 +1,29 @@
+# Disable beep
+xset -b
+
+# Change caps to escape
+setxkbmap -option caps:escape &
+
+# Wallpaper
+nitrogen --restore &
+
+# Compositor
+picom &
+
+# Polybar
+# polybar -r bar &
+
+#Network Manager
+nm-applet &
+
+# Xsettings
+xsettingsd &
+
+# Notification Manager
+dunst &
+
+# Conky
+conky &
+
+# Mount NAS share
+rclone mount family-franz-webdav: ~/nas --vfs-cache-mode writes &
