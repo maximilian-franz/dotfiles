@@ -24,6 +24,3 @@ dunst &
 
 # Conky
 conky &
-
-# Mount NAS share
-rclone mount family-franz-webdav: ~/nas --vfs-cache-mode writes &
