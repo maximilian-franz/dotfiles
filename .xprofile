@@ -10,14 +10,14 @@ setxkbmap -layout de
 # Change caps to escape
 setxkbmap -option caps:escape &
 
-# Wallpaper
-nitrogen --restore &
-
 # Compositor
 picom &
 
 #Network Manager
 nm-applet &
+
+#Bluetooth Manager
+blueman-applet &
 
 # Notification Manager
 dunst &
