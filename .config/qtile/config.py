@@ -2,9 +2,14 @@ from libqtile import bar, layout, widget
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
+from Xlib import display as xdisplay
 from theme import GruvBox
 
-mod = "mod4"
+MY_WALLPAPER = "~/Gruvbox-GTK-Theme/wallpapers/gruvbox13_noise.png"
+MY_WALLPAPER_SECONDARY = "~/Gruvbox-GTK-Theme/wallpapers/gruvbox13_noise_secondary.png"
+ACCENT_COLOR_PRIMARY = GruvBox.blue_hard
+ACCENT_COLOR_SECONDARY = GruvBox.purple_hard
+ACCENT_COLOR_TERTIARY = GruvBox.aqua_hard
 SEPARATORS = {
     "triangle_left": ("", 24),
     "triangle_right": ("", 24),
@@ -16,6 +21,7 @@ SEPARATORS = {
     "fade": ("🮔", 32),
     "pipe": ("|", 18),
 }
+mod = "mod4"
 
 
 def custom_seperator(
@@ -33,6 +39,30 @@ def custom_seperator(
     )
 
 
+def get_num_monitors():
+    num_monitors = 0
+    try:
+        display = xdisplay.Display()
+        screen = display.screen()
+        resources = screen.root.xrandr_get_screen_resources()
+
+        for output in resources.outputs:
+            monitor = display.xrandr_get_output_info(output, resources.config_timestamp)
+            preferred = False
+            if hasattr(monitor, "preferred"):
+                preferred = monitor.preferred
+            elif hasattr(monitor, "num_preferred"):
+                preferred = monitor.num_preferred
+            if preferred:
+                num_monitors += 1
+    except Exception as e:
+        # always setup at least one monitor
+        return 1
+    else:
+        return num_monitors
+
+
+num_monitors = get_num_monitors()
 terminal = guess_terminal()
 favorites = ["firefox", "thunar", "code"]
 
@@ -80,6 +110,7 @@ keys = [
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
+    Key([mod], "f", lazy.window.toggle_floating(), desc="Toggle floating"),
     Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
@@ -158,12 +189,14 @@ widget_defaults = dict(
     foreground=GruvBox.foreground,
     background=GruvBox.background,
     center_aligned=True,
-    theme_path="/home/max/Gruvbox-GTK-Theme/icons/Gruvbox-Dark/panel/24/",
+    theme_path="/home/max/.local/share/icons/GruvboxPlus/panel/24/",
 )
 extension_defaults = widget_defaults.copy()
 
 screens = [
     Screen(
+        wallpaper=MY_WALLPAPER,
+        wallpaper_mode="fill",
         top=bar.Bar(
             [
                 widget.GroupBox(
@@ -172,41 +205,64 @@ screens = [
                 ),
                 widget.Sep(padding=20),
                 widget.WindowName(),
-                custom_seperator("slant_left", foreground=GruvBox.blue_hard),
+                custom_seperator("slant_left", foreground=ACCENT_COLOR_PRIMARY),
                 widget.CheckUpdates(
-                    background=GruvBox.blue_hard,
-                    distro="Arch_yay",
+                    background=ACCENT_COLOR_PRIMARY,
+                    custom_command="checkupdates && yay -Qua",
                     display_format=" {updates}",
                     colour_have_updates=GruvBox.foreground,
                 ),
-                widget.Volume(background=GruvBox.blue_hard, volume_app="pavucontrol"),
-                widget.BatteryIcon(background=GruvBox.blue_hard),
-                widget.Bluetooth(background=GruvBox.blue_hard),
-                widget.Systray(background=GruvBox.blue_hard),
+                widget.KeyboardLayout(
+                    background=ACCENT_COLOR_PRIMARY, configured_keyboards=["de", "us"]
+                ),
+                widget.Volume(
+                    background=ACCENT_COLOR_PRIMARY, volume_app="pavucontrol"
+                ),
+                # widget.Sep(background=ACCENT_COLOR_PRIMARY),
+                widget.BatteryIcon(background=ACCENT_COLOR_PRIMARY),
+                widget.Battery(
+                    background=ACCENT_COLOR_PRIMARY,
+                    format="{percent:2.0%}",
+                    hide_threshold=0.2,
+                    low_foreground=GruvBox.red_soft,
+                ),
+                # widget.Sep(background=ACCENT_COLOR_PRIMARY),
+                widget.Systray(background=ACCENT_COLOR_PRIMARY),
                 custom_seperator(
                     "slant_right",
-                    foreground=GruvBox.blue_hard,
-                    background=GruvBox.aqua_hard,
+                    foreground=ACCENT_COLOR_PRIMARY,
+                    background=ACCENT_COLOR_TERTIARY,
                 ),
                 widget.OpenWeather(
                     location="Berlin",
                     format="{main_temp} °{units_temperature} {weather_details}",
-                    background=GruvBox.aqua_hard,
+                    background=ACCENT_COLOR_TERTIARY,
                 ),
                 custom_seperator(
                     "slant_right",
-                    foreground=GruvBox.aqua_hard,
-                    background=GruvBox.purple_hard,
+                    foreground=ACCENT_COLOR_TERTIARY,
+                    background=ACCENT_COLOR_SECONDARY,
                 ),
                 widget.Clock(
                     format="%H:%M",
-                    background=GruvBox.purple_hard,
+                    background=ACCENT_COLOR_SECONDARY,
                 ),
             ],
             24,
         ),
     ),
 ]
+
+if num_monitors > 1:
+    screens.extend(
+        [
+            Screen(
+                wallpaper=MY_WALLPAPER_SECONDARY,
+                wallpaper_mode="fill",
+            )
+            for _ in range(num_monitors - 1)
+        ]
+    )
 
 # Drag floating layouts.
 mouse = [
