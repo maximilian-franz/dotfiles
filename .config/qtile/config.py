@@ -1,15 +1,49 @@
-from libqtile import bar, layout, widget
+from libqtile import bar, layout, widget, hook
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 from Xlib import display as xdisplay
 from theme import GruvBox
+from dataclasses import dataclass, field
+import subprocess
 
-MY_WALLPAPER = "~/Gruvbox-GTK-Theme/wallpapers/gruvbox13_noise.png"
-MY_WALLPAPER_SECONDARY = "~/Gruvbox-GTK-Theme/wallpapers/gruvbox13_noise_secondary.png"
-ACCENT_COLOR_PRIMARY = GruvBox.blue_hard
-ACCENT_COLOR_SECONDARY = GruvBox.purple_hard
-ACCENT_COLOR_TERTIARY = GruvBox.aqua_hard
+
+@dataclass
+class ThemeColors:
+    primary: str
+    secondary: str
+    tertiary: str
+    foreground: str = GruvBox.foreground
+    background: str = GruvBox.background
+
+
+@dataclass
+class Theme:
+    wallpaper: str
+    accent_colors: ThemeColors
+    secondary_wallpaper: str | None = None
+    apps: list[list[str]] = field(default_factory=list)
+
+    def __post_init__(self):
+        if not self.secondary_wallpaper:
+            self.secondary_wallpaper = self.wallpaper
+
+
+HeartSkull = Theme(
+    wallpaper="~/Gruvbox-GTK-Theme/wallpapers/gruvbox13_noise.png",
+    accent_colors=ThemeColors(
+        GruvBox.blue_hard, GruvBox.purple_hard, GruvBox.aqua_hard
+    ),
+    secondary_wallpaper="~/Gruvbox-GTK-Theme/wallpapers/gruvbox13_noise_secondary.png",
+    apps=[["conky"]],
+)
+
+FlameSkull = Theme(
+    "~/Pictures/gruvbox_skull_gruvbox.png",
+    ThemeColors(GruvBox.red_soft, GruvBox.yellow_soft, GruvBox.foreground_3),
+)
+
+CURRENT_THEME = HeartSkull
 SEPARATORS = {
     "triangle_left": ("", 24),
     "triangle_right": ("", 24),
@@ -26,8 +60,8 @@ mod = "mod4"
 
 def custom_seperator(
     sep: str = "pipe",
-    background: str = GruvBox.background,
-    foreground: str = GruvBox.foreground,
+    background: str = CURRENT_THEME.accent_colors.background,
+    foreground: str = CURRENT_THEME.accent_colors.foreground,
 ):
     char, size = SEPARATORS.get(sep, ("", 0))
     return widget.TextBox(
@@ -60,6 +94,12 @@ def get_num_monitors():
         return 1
     else:
         return num_monitors
+
+
+@hook.subscribe.startup
+def start_theme_apps():
+    for app in CURRENT_THEME.apps:
+        subprocess.Popen(app)
 
 
 num_monitors = get_num_monitors()
@@ -186,8 +226,8 @@ layouts = [
 widget_defaults = dict(
     font="FiraCode Nerd Font Mono",
     fontsize=14,
-    foreground=GruvBox.foreground,
-    background=GruvBox.background,
+    foreground=CURRENT_THEME.accent_colors.foreground,
+    background=CURRENT_THEME.accent_colors.background,
     center_aligned=True,
     theme_path="/home/max/.local/share/icons/GruvboxPlus/panel/24/",
 )
@@ -195,7 +235,7 @@ extension_defaults = widget_defaults.copy()
 
 screens = [
     Screen(
-        wallpaper=MY_WALLPAPER,
+        wallpaper=CURRENT_THEME.wallpaper,
         wallpaper_mode="fill",
         top=bar.Bar(
             [
@@ -205,47 +245,51 @@ screens = [
                 ),
                 widget.Sep(padding=20),
                 widget.WindowName(),
-                custom_seperator("slant_left", foreground=ACCENT_COLOR_PRIMARY),
+                custom_seperator(
+                    "slant_left", foreground=CURRENT_THEME.accent_colors.primary
+                ),
                 widget.CheckUpdates(
-                    background=ACCENT_COLOR_PRIMARY,
+                    background=CURRENT_THEME.accent_colors.primary,
                     custom_command="checkupdates && yay -Qua",
                     display_format=" {updates}",
                     colour_have_updates=GruvBox.foreground,
                 ),
                 widget.KeyboardLayout(
-                    background=ACCENT_COLOR_PRIMARY, configured_keyboards=["de", "us"]
+                    background=CURRENT_THEME.accent_colors.primary,
+                    configured_keyboards=["de", "us"],
                 ),
                 widget.Volume(
-                    background=ACCENT_COLOR_PRIMARY, volume_app="pavucontrol"
+                    background=CURRENT_THEME.accent_colors.primary,
+                    volume_app="pavucontrol",
                 ),
-                # widget.Sep(background=ACCENT_COLOR_PRIMARY),
-                widget.BatteryIcon(background=ACCENT_COLOR_PRIMARY),
+                # widget.Sep(background=CURRENT_THEME.accent_colors.primary),
+                widget.BatteryIcon(background=CURRENT_THEME.accent_colors.primary),
                 widget.Battery(
-                    background=ACCENT_COLOR_PRIMARY,
+                    background=CURRENT_THEME.accent_colors.primary,
                     format="{percent:2.0%}",
                     hide_threshold=0.2,
                     low_foreground=GruvBox.red_soft,
                 ),
-                # widget.Sep(background=ACCENT_COLOR_PRIMARY),
-                widget.Systray(background=ACCENT_COLOR_PRIMARY),
+                # widget.Sep(background=CURRENT_THEME.accent_colors.primary),
+                widget.Systray(background=CURRENT_THEME.accent_colors.primary),
                 custom_seperator(
                     "slant_right",
-                    foreground=ACCENT_COLOR_PRIMARY,
-                    background=ACCENT_COLOR_TERTIARY,
+                    foreground=CURRENT_THEME.accent_colors.primary,
+                    background=CURRENT_THEME.accent_colors.tertiary,
                 ),
                 widget.OpenWeather(
                     location="Berlin",
                     format="{main_temp} °{units_temperature} {weather_details}",
-                    background=ACCENT_COLOR_TERTIARY,
+                    background=CURRENT_THEME.accent_colors.tertiary,
                 ),
                 custom_seperator(
                     "slant_right",
-                    foreground=ACCENT_COLOR_TERTIARY,
-                    background=ACCENT_COLOR_SECONDARY,
+                    foreground=CURRENT_THEME.accent_colors.tertiary,
+                    background=CURRENT_THEME.accent_colors.secondary,
                 ),
                 widget.Clock(
                     format="%H:%M",
-                    background=ACCENT_COLOR_SECONDARY,
+                    background=CURRENT_THEME.accent_colors.secondary,
                 ),
             ],
             24,
@@ -257,7 +301,7 @@ if num_monitors > 1:
     screens.extend(
         [
             Screen(
-                wallpaper=MY_WALLPAPER_SECONDARY,
+                wallpaper=CURRENT_THEME.secondary_wallpaper,
                 wallpaper_mode="fill",
             )
             for _ in range(num_monitors - 1)
