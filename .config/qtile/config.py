@@ -29,30 +29,33 @@ class Theme:
             self.secondary_wallpaper = self.wallpaper
 
 
-HeartSkull = Theme(
+heart_skull = Theme(
     wallpaper="~/Gruvbox-GTK-Theme/wallpapers/gruvbox13_noise.png",
     accent_colors=ThemeColors(
-        GruvBox.blue_hard, GruvBox.purple_hard, GruvBox.aqua_hard
+        GruvBox.blue_hard, GruvBox.aqua_hard, GruvBox.purple_hard
     ),
-    secondary_wallpaper="~/Gruvbox-GTK-Theme/wallpapers/gruvbox13_noise_secondary.png",
-    apps=[["conky"]],
+    secondary_wallpaper="~/Gruvbox-GTK-Theme/wallpapers/gruvbox_noise.png",
+    apps=[["conky", "-c", "~/.config/conky/hear_skull.conf", "-d"]],
 )
 
-FlameSkull = Theme(
-    "~/Pictures/gruvbox_skull_gruvbox.png",
-    ThemeColors(GruvBox.red_soft, GruvBox.yellow_soft, GruvBox.foreground_3),
+minimal = Theme(
+    wallpaper="~/Gruvbox-GTK-Theme/wallpapers/gruvbox_noise.png",
+    accent_colors=ThemeColors(
+        GruvBox.background_1, GruvBox.background_2, GruvBox.background_3
+    ),
+    apps=[["conky", "-c", "~/.config/conky/minimal.conf", "-d"]],
 )
 
-CURRENT_THEME = HeartSkull
+CURRENT_THEME = minimal
 SEPARATORS = {
-    "triangle_left": ("", 24),
-    "triangle_right": ("", 24),
+    "triangle_left": ("", 20),
+    "triangle_right": ("", 20),
     "circle_left": ("", 20),
     "circle_right": ("", 20),
     "slant_left": ("🭦", 30),
     "slant_right": ("🭀", 30),
-    "straight": ("▐", 30),
-    "fade": ("🮔", 32),
+    "straight": ("█", 30),
+    "fade": ("🮔", 30),
     "pipe": ("|", 18),
 }
 mod = "mod4"
@@ -245,9 +248,6 @@ screens = [
                 ),
                 widget.Sep(padding=20),
                 widget.WindowName(),
-                custom_seperator(
-                    "slant_left", foreground=CURRENT_THEME.accent_colors.primary
-                ),
                 widget.CheckUpdates(
                     background=CURRENT_THEME.accent_colors.primary,
                     custom_command="checkupdates && yay -Qua",
@@ -262,7 +262,6 @@ screens = [
                     background=CURRENT_THEME.accent_colors.primary,
                     volume_app="pavucontrol",
                 ),
-                # widget.Sep(background=CURRENT_THEME.accent_colors.primary),
                 widget.BatteryIcon(background=CURRENT_THEME.accent_colors.primary),
                 widget.Battery(
                     background=CURRENT_THEME.accent_colors.primary,
@@ -270,26 +269,15 @@ screens = [
                     hide_threshold=0.2,
                     low_foreground=GruvBox.red_soft,
                 ),
-                # widget.Sep(background=CURRENT_THEME.accent_colors.primary),
                 widget.Systray(background=CURRENT_THEME.accent_colors.primary),
-                custom_seperator(
-                    "slant_right",
-                    foreground=CURRENT_THEME.accent_colors.primary,
-                    background=CURRENT_THEME.accent_colors.tertiary,
-                ),
                 widget.OpenWeather(
                     location="Berlin",
                     format="{main_temp} °{units_temperature} {weather_details}",
-                    background=CURRENT_THEME.accent_colors.tertiary,
-                ),
-                custom_seperator(
-                    "slant_right",
-                    foreground=CURRENT_THEME.accent_colors.tertiary,
                     background=CURRENT_THEME.accent_colors.secondary,
                 ),
                 widget.Clock(
                     format="%H:%M",
-                    background=CURRENT_THEME.accent_colors.secondary,
+                    background=CURRENT_THEME.accent_colors.tertiary,
                 ),
             ],
             24,
