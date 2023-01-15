@@ -30,16 +30,16 @@ class Theme:
 
 
 heart_skull = Theme(
-    wallpaper="~/Gruvbox-GTK-Theme/wallpapers/gruvbox13_noise.png",
+    wallpaper="~/.config/wallpapers/gruvbox13.png",
     accent_colors=ThemeColors(
         GruvBox.blue_hard, GruvBox.aqua_hard, GruvBox.purple_hard
     ),
-    secondary_wallpaper="~/Gruvbox-GTK-Theme/wallpapers/gruvbox_noise.png",
+    secondary_wallpaper="~/.config/wallpapers/gruvbox27.png",
     apps=[["conky", "-c", "~/.config/conky/hear_skull.conf", "-d"]],
 )
 
 minimal = Theme(
-    wallpaper="~/Gruvbox-GTK-Theme/wallpapers/gruvbox_noise.png",
+    wallpaper="~/.config/wallpapers/gruvbox27.png",
     accent_colors=ThemeColors(
         GruvBox.background_1, GruvBox.background_2, GruvBox.background_3
     ),
@@ -157,21 +157,21 @@ keys = [
     Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
-    Key([], "XF86AudioRaiseVolume", lazy.spawn("wpctl set-volume @DEFAULT_SINK@ 5%+")),
-    Key([], "XF86AudioLowerVolume", lazy.spawn("wpctl set-volume @DEFAULT_SINK@ 5%-")),
+    Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer -D pulse sset Master 5%+")),
+    Key([], "XF86AudioLowerVolume", lazy.spawn("amixer -D pulse sset Master 5%-")),
     Key([], "XF86AudioMute", lazy.spawn("wpctl set-mute @DEFAULT_SINK@ toggle")),
-    Key([], "XF86MonBrightnessUp", lazy.spawn("brillo -A 10")),
-    Key([], "XF86MonBrightnessDown", lazy.spawn("brillo -U 10")),
+    Key([], "XF86MonBrightnessUp", lazy.spawn('light -A 5 && notify-send "Brightness - $(light)%"')),
+    Key([], "XF86MonBrightnessDown", lazy.spawn('light -U 5 && notify-send "Brightness - $(light)%"')),
     Key(
         [mod],
-        "r",
-        lazy.spawn("rofi -show drun -show-icons"),
+        "d",
+        lazy.spawn("rofi -modi drun -show drun -show-icons -config ~/.config/rofi/rofidmenu.rasi"),
         desc="Spawn a command using rofi",
     ),
     Key(
         [mod, "shift"],
-        "r",
-        lazy.spawn("rofi -show power-menu -modi power-menu:rofi-power-menu"),
+        "e",
+        lazy.spawn("rofi -show power-menu -modi power-menu:~/.config/rofi/rofi-power-menu -config ~/.config/rofi/powermenu.rasi"),
         desc="Spawn a power menu using rofi",
     ),
 ]
@@ -206,33 +206,23 @@ for group in groups:
     )
 
 layouts = [
-    layout.Columns(
+    layout.Spiral(
         border_focus=GruvBox.background_4,
         border_normal=GruvBox.background_soft,
         margin=4,
         margin_on_single=0,
+        new_client_position="after_current"
     ),
     layout.Max(),
-    # Try more layouts by unleashing below layouts.
-    # layout.Stack(num_stacks=2),
-    # layout.Bsp(),
-    # layout.Matrix(),
-    # layout.MonadTall(),
-    # layout.MonadWide(),
-    # layout.RatioTile(),
-    # layout.Tile(),
-    # layout.TreeTab(),
-    # layout.VerticalTile(),
-    # layout.Zoomy(),
 ]
 
 widget_defaults = dict(
-    font="FiraCode Nerd Font Mono",
+    font="Hack Nerd Font Mono",
     fontsize=14,
     foreground=CURRENT_THEME.accent_colors.foreground,
     background=CURRENT_THEME.accent_colors.background,
     center_aligned=True,
-    theme_path="/home/max/.local/share/icons/GruvboxPlus/panel/24/",
+    theme_path="/usr/share/icons/Gruvbox_Dark/panel/24/",
 )
 extension_defaults = widget_defaults.copy()
 
@@ -248,12 +238,6 @@ screens = [
                 ),
                 widget.Sep(padding=20),
                 widget.WindowName(),
-                widget.CheckUpdates(
-                    background=CURRENT_THEME.accent_colors.primary,
-                    custom_command="checkupdates && yay -Qua",
-                    display_format=" {updates}",
-                    colour_have_updates=GruvBox.foreground,
-                ),
                 widget.KeyboardLayout(
                     background=CURRENT_THEME.accent_colors.primary,
                     configured_keyboards=["de", "us"],
@@ -270,9 +254,9 @@ screens = [
                     low_foreground=GruvBox.red_soft,
                 ),
                 widget.Systray(background=CURRENT_THEME.accent_colors.primary),
-                widget.OpenWeather(
-                    location="Berlin",
-                    format="{main_temp} °{units_temperature} {weather_details}",
+                widget.Wttr(
+                    location={"Berlin": "Berlin"},
+                    format="%t %c",
                     background=CURRENT_THEME.accent_colors.secondary,
                 ),
                 widget.Clock(
