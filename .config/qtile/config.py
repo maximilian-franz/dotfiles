@@ -2,6 +2,8 @@ from libqtile import bar, layout, widget, hook
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
+from qtile_extras import widget
+from qtile_extras.widget import decorations
 from Xlib import display as xdisplay
 from theme import GruvBox
 from dataclasses import dataclass, field
@@ -35,45 +37,22 @@ heart_skull = Theme(
         GruvBox.blue_hard, GruvBox.aqua_hard, GruvBox.purple_hard
     ),
     secondary_wallpaper="~/.config/wallpapers/gruvbox27.png",
-    apps=[["conky", "-c", "~/.config/conky/hear_skull.conf", "-d"]],
+    apps=[["conky", "-c", "/home/max/.config/conky/hear_skull.conf", "-d"]],
 )
 
 minimal = Theme(
     wallpaper="~/.config/wallpapers/gruvbox27.png",
     accent_colors=ThemeColors(
-        GruvBox.background_1, GruvBox.background_2, GruvBox.background_3
+        GruvBox.background_1,
+        GruvBox.background_2,
+        GruvBox.background_3,
+        GruvBox.foreground_4,
     ),
-    apps=[["conky", "-c", "~/.config/conky/minimal.conf", "-d"]],
+    apps=[["conky", "-c", "/home/max/.config/conky/minimal.conf", "-d"]],
 )
 
 CURRENT_THEME = minimal
-SEPARATORS = {
-    "triangle_left": ("", 20),
-    "triangle_right": ("", 20),
-    "circle_left": ("", 20),
-    "circle_right": ("", 20),
-    "slant_left": ("🭦", 30),
-    "slant_right": ("🭀", 30),
-    "straight": ("█", 30),
-    "fade": ("🮔", 30),
-    "pipe": ("|", 18),
-}
 mod = "mod4"
-
-
-def custom_seperator(
-    sep: str = "pipe",
-    background: str = CURRENT_THEME.accent_colors.background,
-    foreground: str = CURRENT_THEME.accent_colors.foreground,
-):
-    char, size = SEPARATORS.get(sep, ("", 0))
-    return widget.TextBox(
-        text=char,
-        fontsize=size,
-        padding=0,
-        background=background,
-        foreground=foreground,
-    )
 
 
 def get_num_monitors():
@@ -157,21 +136,45 @@ keys = [
     Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
-    Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer -D pulse sset Master 5%+")),
-    Key([], "XF86AudioLowerVolume", lazy.spawn("amixer -D pulse sset Master 5%-")),
-    Key([], "XF86AudioMute", lazy.spawn("wpctl set-mute @DEFAULT_SINK@ toggle")),
-    Key([], "XF86MonBrightnessUp", lazy.spawn('light -A 5 && notify-send "Brightness - $(light)%"')),
-    Key([], "XF86MonBrightnessDown", lazy.spawn('light -U 5 && notify-send "Brightness - $(light)%"')),
+    Key(
+        [],
+        "XF86AudioRaiseVolume",
+        lazy.spawn("/home/max/.config/qtile/scripts/changeVolume up"),
+    ),
+    Key(
+        [],
+        "XF86AudioLowerVolume",
+        lazy.spawn("/home/max/.config/qtile/scripts/changeVolume down"),
+    ),
+    Key(
+        [],
+        "XF86AudioMute",
+        lazy.spawn("/home/max/.config/qtile/scripts/changeVolume mute"),
+    ),
+    Key(
+        [],
+        "XF86MonBrightnessUp",
+        lazy.spawn("/home/max/.config/qtile/scripts/changeBrightness up"),
+    ),
+    Key(
+        [],
+        "XF86MonBrightnessDown",
+        lazy.spawn("/home/max/.config/qtile/scripts/changeBrightness down"),
+    ),
     Key(
         [mod],
         "d",
-        lazy.spawn("rofi -modi drun -show drun -show-icons -config ~/.config/rofi/rofidmenu.rasi"),
+        lazy.spawn(
+            "rofi -modi drun -show drun -show-icons -config ~/.config/rofi/rofidmenu.rasi"
+        ),
         desc="Spawn a command using rofi",
     ),
     Key(
         [mod, "shift"],
         "e",
-        lazy.spawn("rofi -show power-menu -modi power-menu:~/.config/rofi/rofi-power-menu -config ~/.config/rofi/powermenu.rasi"),
+        lazy.spawn(
+            "rofi -show power-menu -modi power-menu:~/.config/rofi/rofi-power-menu -config ~/.config/rofi/powermenu.rasi"
+        ),
         desc="Spawn a power menu using rofi",
     ),
 ]
@@ -206,12 +209,11 @@ for group in groups:
     )
 
 layouts = [
-    layout.Spiral(
+    layout.Columns(
         border_focus=GruvBox.background_4,
         border_normal=GruvBox.background_soft,
         margin=4,
         margin_on_single=0,
-        new_client_position="after_current"
     ),
     layout.Max(),
 ]
@@ -226,6 +228,8 @@ widget_defaults = dict(
 )
 extension_defaults = widget_defaults.copy()
 
+decorations = {"decorations": [decorations.PowerLineDecoration(path="forward_slash")]}
+
 screens = [
     Screen(
         wallpaper=CURRENT_THEME.wallpaper,
@@ -233,11 +237,16 @@ screens = [
         top=bar.Bar(
             [
                 widget.GroupBox(
-                    this_current_screen_border=GruvBox.background_4,
+                    this_current_screen_border=CURRENT_THEME.accent_colors.tertiary,
+                    active=CURRENT_THEME.accent_colors.foreground,
+                    inactive=CURRENT_THEME.accent_colors.secondary,
                     highlight_method="block",
+                    rounded=False,
+                    **decorations,
                 ),
-                widget.Sep(padding=20),
+                widget.Spacer(**decorations),
                 widget.WindowName(),
+                widget.Spacer(**decorations),
                 widget.KeyboardLayout(
                     background=CURRENT_THEME.accent_colors.primary,
                     configured_keyboards=["de", "us"],
@@ -245,19 +254,16 @@ screens = [
                 widget.Volume(
                     background=CURRENT_THEME.accent_colors.primary,
                     volume_app="pavucontrol",
+                    update_interval=0.2,
                 ),
-                widget.BatteryIcon(background=CURRENT_THEME.accent_colors.primary),
-                widget.Battery(
-                    background=CURRENT_THEME.accent_colors.primary,
-                    format="{percent:2.0%}",
-                    hide_threshold=0.2,
-                    low_foreground=GruvBox.red_soft,
+                widget.Systray(
+                    background=CURRENT_THEME.accent_colors.primary, **decorations
                 ),
-                widget.Systray(background=CURRENT_THEME.accent_colors.primary),
                 widget.Wttr(
-                    location={"Berlin": "Berlin"},
                     format="%t %c",
                     background=CURRENT_THEME.accent_colors.secondary,
+                    location={"Potsdam": "Potsdam"},
+                    **decorations,
                 ),
                 widget.Clock(
                     format="%H:%M",
