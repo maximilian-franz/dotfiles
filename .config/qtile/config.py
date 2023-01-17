@@ -219,7 +219,7 @@ layouts = [
 ]
 
 widget_defaults = dict(
-    font="Hack Nerd Font Mono",
+    font="Hack Nerd Font             Mono",
     fontsize=14,
     foreground=CURRENT_THEME.accent_colors.foreground,
     background=CURRENT_THEME.accent_colors.background,
@@ -238,6 +238,7 @@ screens = [
             [
                 widget.GroupBox(
                     this_current_screen_border=CURRENT_THEME.accent_colors.tertiary,
+                    this_screen_border=CURRENT_THEME.accent_colors.tertiary,
                     active=CURRENT_THEME.accent_colors.foreground,
                     inactive=CURRENT_THEME.accent_colors.secondary,
                     highlight_method="block",
