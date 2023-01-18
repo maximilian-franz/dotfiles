@@ -46,9 +46,11 @@ frame_color = "#FB4934"
 timeout = 0
 
 [volume_control]
-appname="changeVolume"
-history_ignore=yes
+appname = "changeVolume"
+history_ignore = yes
+timeout = 500ms
 
 [brightness_control]
-appname="changeBrightness"
-history_ignore=yes
+appname = "changeBrightness"
+history_ignore = yes
+timeout = 500ms
