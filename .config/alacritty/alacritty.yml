@@ -56,3 +56,8 @@ window:
   padding:
     x: 5
     y: 5
+
+cursor:
+  style:
+    shape: Beam
+    blinking: On
