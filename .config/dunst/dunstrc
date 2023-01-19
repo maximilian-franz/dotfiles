@@ -27,7 +27,7 @@ browser = /usr/bin/firefox -new-tab
 always_run_script = true
 title = Dunst
 class = Dunst
-icon_path = /usr/share/icons/Gruvbox_Dark/status/48
+icon_path = /usr/share/icons/gruvbox-plus/status/48
 
 [urgency_low]
 background = "#3C3836"

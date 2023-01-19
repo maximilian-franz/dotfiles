@@ -8,7 +8,7 @@ xset -b
 setxkbmap -layout de
 
 # Session lock
- ~/.config/i3/scripts/blur-lock &
+xss-lock --transfer-sleep-lock -- ~/.config/i3/scripts/blur-lock &
 
 # Change caps to escape
 setxkbmap -option caps:escape &
@@ -19,10 +19,10 @@ picom &
 # Authorization Manager
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 
-# Network Manager
+# Network Applet
 nm-applet &
 
-# Bluetooth Manager
+# Bluetooth Applet
 blueman-applet &
 
 # Battery Indicator
@@ -30,3 +30,6 @@ cbatticon -u 2 &
 
 # Notification Manager
 dunst &
+
+# Volume Applet
+pasystray &

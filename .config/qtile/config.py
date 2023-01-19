@@ -11,18 +11,8 @@ import subprocess
 
 
 @dataclass
-class ThemeColors:
-    primary: str
-    secondary: str
-    tertiary: str
-    foreground: str = GruvBox.foreground
-    background: str = GruvBox.background
-
-
-@dataclass
 class Theme:
     wallpaper: str
-    accent_colors: ThemeColors
     secondary_wallpaper: str | None = None
     apps: list[list[str]] = field(default_factory=list)
 
@@ -33,21 +23,12 @@ class Theme:
 
 heart_skull = Theme(
     wallpaper="~/.config/wallpapers/gruvbox13.png",
-    accent_colors=ThemeColors(
-        GruvBox.blue_hard, GruvBox.aqua_hard, GruvBox.purple_hard
-    ),
     secondary_wallpaper="~/.config/wallpapers/gruvbox27.png",
     apps=[["conky", "-c", "/home/max/.config/conky/hear_skull.conf", "-d"]],
 )
 
 minimal = Theme(
     wallpaper="~/.config/wallpapers/gruvbox27.png",
-    accent_colors=ThemeColors(
-        GruvBox.background_1,
-        GruvBox.background_2,
-        GruvBox.background_3,
-        GruvBox.foreground_4,
-    ),
     apps=[["conky", "-c", "/home/max/.config/conky/minimal.conf", "-d"]],
 )
 
@@ -227,10 +208,10 @@ layouts = [
 widget_defaults = dict(
     font="Hack Nerd Font             Mono",
     fontsize=14,
-    foreground=CURRENT_THEME.accent_colors.foreground,
-    background=CURRENT_THEME.accent_colors.background,
+    foreground=GruvBox.foreground,
+    background=GruvBox.background,
     center_aligned=True,
-    theme_path="/usr/share/icons/Gruvbox_Dark/panel/24/",
+    theme_path="/usr/share/icons/gruvbox-plus/panel/24/",
 )
 extension_defaults = widget_defaults.copy()
 
@@ -243,10 +224,10 @@ screens = [
         top=bar.Bar(
             [
                 widget.GroupBox(
-                    this_current_screen_border=CURRENT_THEME.accent_colors.tertiary,
-                    this_screen_border=CURRENT_THEME.accent_colors.tertiary,
-                    active=CURRENT_THEME.accent_colors.foreground,
-                    inactive=CURRENT_THEME.accent_colors.secondary,
+                    this_current_screen_border=GruvBox.background_4,
+                    this_screen_border=GruvBox.background_2,
+                    active=GruvBox.foreground,
+                    inactive=GruvBox.foreground_4,
                     highlight_method="block",
                     rounded=False,
                     **decorations,
@@ -255,26 +236,19 @@ screens = [
                 widget.WindowName(),
                 widget.Spacer(**decorations),
                 widget.KeyboardLayout(
-                    background=CURRENT_THEME.accent_colors.primary,
+                    background=GruvBox.background_2,
                     configured_keyboards=["de", "us"],
                 ),
-                widget.Volume(
-                    background=CURRENT_THEME.accent_colors.primary,
-                    volume_app="pavucontrol",
-                    update_interval=0.2,
-                ),
-                widget.Systray(
-                    background=CURRENT_THEME.accent_colors.primary, **decorations
-                ),
+                widget.Systray(background=GruvBox.background_2, **decorations),
                 widget.Wttr(
-                    format="%t %c",
-                    background=CURRENT_THEME.accent_colors.secondary,
+                    format="%t %C",
+                    background=GruvBox.background_1,
                     location={"Potsdam": "Potsdam"},
                     **decorations,
                 ),
                 widget.Clock(
                     format="%H:%M",
-                    background=CURRENT_THEME.accent_colors.tertiary,
+                    background=GruvBox.background_soft,
                 ),
             ],
             24,
