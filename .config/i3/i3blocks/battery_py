@@ -1,0 +1,33 @@
+#!/usr/bin/python3
+
+import psutil
+
+def get_level_icon(battery_level: float):
+    if battery_level <= 10:
+        return ""
+    if battery_level <= 20:
+        return "" 
+    if battery_level <= 30:
+        return ""
+    if battery_level <= 40:
+        return ""
+    if battery_level <= 50:
+        return ""
+    if battery_level <= 60:
+        return ""
+    if battery_level <= 70:
+        return ""
+    if battery_level <= 80:
+        return ""
+    if battery_level <= 90:
+        return ""
+    if battery_level <= 95:
+        return ""
+    return ""
+
+charging_icon = ""
+
+battery = psutil.sensors_battery()
+plugged_in = battery.power_plugged
+message = (charging_icon if plugged_in else "") + get_level_icon(battery.percent)
+print(message)

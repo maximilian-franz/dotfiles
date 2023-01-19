@@ -177,6 +177,12 @@ keys = [
         ),
         desc="Spawn a power menu using rofi",
     ),
+    Key(
+        [mod, "shift"],
+        "l",
+        lazy.spawn("/home/max/.config/i3/scripts/blur-lock"),
+        desc="Spawn a power menu using rofi",
+    ),
 ]
 
 keys.extend(

@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+mkdir -p ~/Pictures/Screenshots
+scrot ~/Pictures/Screenshots/%Y-%m-%d-%T-screenshot.png && dunstify "Screenshot saved"
