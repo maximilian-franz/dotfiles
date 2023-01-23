@@ -4,14 +4,8 @@ xsettingsd &
 # Disable beep
 xset -b
 
-# Set keyboad layout
-setxkbmap -layout de
-
 # Session lock
 xss-lock --transfer-sleep-lock -- ~/.config/i3/scripts/blur-lock &
-
-# Change caps to escape
-setxkbmap -option caps:escape &
 
 # Compositor
 picom &
@@ -33,3 +27,6 @@ dunst &
 
 # Volume Applet
 pasystray &
+
+# Set monitor layout
+autorandr --change &
