@@ -1,4 +1,4 @@
-from libqtile import bar, layout, widget, hook
+from libqtile import bar, layout, widget
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
@@ -6,34 +6,6 @@ from qtile_extras import widget
 from qtile_extras.widget import decorations
 from Xlib import display as xdisplay
 from theme import GruvBox
-from dataclasses import dataclass, field
-import subprocess
-
-
-@dataclass
-class Theme:
-    wallpaper: str
-    secondary_wallpaper: str | None = None
-    apps: list[list[str]] = field(default_factory=list)
-
-    def __post_init__(self):
-        if not self.secondary_wallpaper:
-            self.secondary_wallpaper = self.wallpaper
-
-
-heart_skull = Theme(
-    wallpaper="~/.config/wallpapers/gruvbox13.png",
-    secondary_wallpaper="~/.config/wallpapers/gruvbox27.png",
-    apps=[["conky", "-c", "/home/max/.config/conky/hear_skull.conf", "-d"]],
-)
-
-minimal = Theme(
-    wallpaper="~/.config/wallpapers/gruvbox27.png",
-    apps=[["conky", "-c", "/home/max/.config/conky/minimal.conf", "-d"]],
-)
-
-CURRENT_THEME = minimal
-mod = "mod4"
 
 
 def get_num_monitors():
@@ -59,12 +31,7 @@ def get_num_monitors():
         return num_monitors
 
 
-@hook.subscribe.startup
-def start_theme_apps():
-    for app in CURRENT_THEME.apps:
-        subprocess.Popen(app)
-
-
+mod = "mod4"
 num_monitors = get_num_monitors()
 terminal = guess_terminal()
 favorites = ["firefox", "thunar", "code"]
@@ -180,7 +147,7 @@ keys = [
         lazy.spawn(
             "rofi -modi drun -show drun -show-icons -config ~/.config/rofi/rofidmenu.rasi"
         ),
-        desc="Spawn a command using rofi",
+        desc="Spawn an application using rofi",
     ),
     Key(
         [mod, "shift"],
@@ -194,7 +161,13 @@ keys = [
         [mod, "shift"],
         "l",
         lazy.spawn("/home/max/.config/i3/scripts/blur-lock"),
-        desc="Spawn a power menu using rofi",
+        desc="Lock the screen",
+    ),
+    Key(
+        [mod],
+        "p",
+        lazy.spawn("/home/max/.config/i3/scripts/power-profiles"),
+        desc="Switch power profiles using rofi",
     ),
 ]
 
@@ -238,7 +211,7 @@ layouts = [
 ]
 
 widget_defaults = dict(
-    font="Hack Nerd Font             Mono",
+    font="Hack Nerd Font",
     fontsize=14,
     foreground=GruvBox.foreground,
     background=GruvBox.background,
@@ -251,7 +224,7 @@ decorations = {"decorations": [decorations.PowerLineDecoration(path="forward_sla
 
 screens = [
     Screen(
-        wallpaper=CURRENT_THEME.wallpaper,
+        wallpaper="~/.config/wallpapers/gruvbox27.png",
         wallpaper_mode="fill",
         top=bar.Bar(
             [
@@ -264,12 +237,10 @@ screens = [
                     rounded=False,
                     **decorations,
                 ),
-                widget.Spacer(),
-                widget.WindowName(),
-                widget.Spacer(**decorations),
+                widget.WindowName(**decorations),
                 widget.KeyboardLayout(
                     background=GruvBox.background_2,
-                    configured_keyboards=["de", "us"],
+                    configured_keyboards=["de", "us intl"],
                 ),
                 widget.Systray(background=GruvBox.background_2, **decorations),
                 widget.Wttr(
@@ -292,7 +263,7 @@ if num_monitors > 1:
     screens.extend(
         [
             Screen(
-                wallpaper=CURRENT_THEME.secondary_wallpaper,
+                wallpaper="~/.config/wallpapers/gruvbox27.png",
                 wallpaper_mode="fill",
             )
             for _ in range(num_monitors - 1)

@@ -30,3 +30,6 @@ pasystray &
 
 # Set monitor layout
 autorandr --change &
+
+# Conky
+conky -c ~/.config/conky/minimal.conf -d
