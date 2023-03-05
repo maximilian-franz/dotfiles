@@ -32,4 +32,4 @@ pasystray &
 autorandr --change &
 
 # Conky
-conky -c ~/.config/conky/minimal.conf -d
+conky -c ~/.config/conky/iroh.conf -d

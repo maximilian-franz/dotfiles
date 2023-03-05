@@ -79,7 +79,7 @@ keys = [
     ),
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
     # Toggle between different layouts as defined below
-    Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
+    Key([mod], "o", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod], "f", lazy.window.toggle_floating(), desc="Toggle floating"),
     Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
@@ -146,6 +146,14 @@ keys = [
         "d",
         lazy.spawn(
             "rofi -modi drun -show drun -show-icons -config ~/.config/rofi/rofidmenu.rasi"
+        ),
+        desc="Spawn an application using rofi",
+    ),
+    Key(
+        [mod],
+        "Tab",
+        lazy.spawn(
+            "rofi -modi window -show window -config ~/.config/rofi/rofidmenu.rasi"
         ),
         desc="Spawn an application using rofi",
     ),
@@ -224,7 +232,7 @@ decorations = {"decorations": [decorations.PowerLineDecoration(path="forward_sla
 
 screens = [
     Screen(
-        wallpaper="~/.config/wallpapers/gruvbox27.png",
+        wallpaper="~/.config/wallpapers/appa.png",
         wallpaper_mode="fill",
         top=bar.Bar(
             [
@@ -263,7 +271,7 @@ if num_monitors > 1:
     screens.extend(
         [
             Screen(
-                wallpaper="~/.config/wallpapers/gruvbox27.png",
+                wallpaper="~/.config/wallpapers/appa.png",
                 wallpaper_mode="fill",
             )
             for _ in range(num_monitors - 1)
@@ -297,6 +305,9 @@ floating_layout = layout.Floating(
         Match(wm_class="makebranch"),  # gitk
         Match(wm_class="maketag"),  # gitk
         Match(wm_class="ssh-askpass"),  # ssh-askpass
+        Match(wm_class="blueman-manager"),  # blueman-manager
+        Match(wm_class="pavucontrol"),  # pavucontrol
+        Match(wm_class="Steam", title="Friends List"),  # Steam Friends List
         Match(title="branchdialog"),  # gitk
         Match(title="pinentry"),  # GPG key password entry
     ],

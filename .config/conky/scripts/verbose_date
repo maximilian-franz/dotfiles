@@ -1,0 +1,39 @@
+#!/bin/python3
+
+from datetime import date
+
+today = date.today()
+suffix = "th"
+if today.day in [1, 21, 31]:
+    suffix = "st"
+elif today.day in [2, 22]:
+    suffix = "nd"
+elif today.day in [3, 23]:
+    suffix = "rd"
+
+dow = {
+    1: "Monday",
+    2: "Tuesday",
+    3: "Wednesday",
+    4: "Thursday",
+    5: "Friday",
+    6: "Saturday",
+    7: "Sunday",
+}.get(today.isoweekday())
+
+month = {
+    1: "January",
+    2: "February",
+    3: "March",
+    4: "April",
+    5: "May",
+    6: "June",
+    7: "July",
+    8: "August",
+    9: "September",
+    10: "October",
+    11: "November",
+    12: "December",
+}.get(today.month)
+
+print(f"Today is {dow}, the {today.day}{suffix} of {month}.")

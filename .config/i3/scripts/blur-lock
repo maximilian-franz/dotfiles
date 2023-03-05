@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-PICTURE=~/.config/wallpapers/gruvbox10.png
+PICTURE=~/.config/wallpapers/atla_02.jpeg
 # SCREENSHOT="scrot -z $PICTURE"
 
 BLUR="0x10"
