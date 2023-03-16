@@ -52,7 +52,7 @@ colors:
     orange:  '0xfe8019'
 
 window:
-  opacity: 0.75
+  opacity: 0.25
   padding:
     x: 5
     y: 5

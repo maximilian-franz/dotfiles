@@ -34,7 +34,7 @@ def get_num_monitors():
 mod = "mod4"
 num_monitors = get_num_monitors()
 terminal = guess_terminal()
-favorites = ["firefox", "thunar", "code"]
+favorites = ["firefox", "thunar", "code", "thunderbird"]
 
 keys = [
     # A list of available commands that can be bound to keys can be found
@@ -232,7 +232,7 @@ decorations = {"decorations": [decorations.PowerLineDecoration(path="forward_sla
 
 screens = [
     Screen(
-        wallpaper="~/.config/wallpapers/appa.png",
+        wallpaper="~/.config/wallpapers/temple_03.jpeg",
         wallpaper_mode="fill",
         top=bar.Bar(
             [
@@ -271,7 +271,7 @@ if num_monitors > 1:
     screens.extend(
         [
             Screen(
-                wallpaper="~/.config/wallpapers/appa.png",
+                wallpaper="~/.config/wallpapers/temple_03.jpeg",
                 wallpaper_mode="fill",
             )
             for _ in range(num_monitors - 1)
