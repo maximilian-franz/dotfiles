@@ -41,6 +41,8 @@ lightdm-settings
 qtile-extras-git
 capitaine-cursors-sainnhe-git
 visual-studio-code-bin
+clight
+i3lock-color
 ```
 
 ### 1.3 Clone Theme Repo
