@@ -32,6 +32,7 @@ alacritty
 ttf-hack-nerd
 lxappearance
 thunar
+xss-lock
 ```
 
 AUR
