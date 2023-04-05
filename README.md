@@ -48,4 +48,6 @@ capitaine-cursors-sainnhe-git
 
 [gruvbox-plus-icon-pack](https://github.com/SylEleuth/gruvbox-plus-icon-pack)
 
+[capitaine-cursors](https://github.com/sainnhe/capitaine-cursors) (if `capitaine-cursors-sainnhe-git` won't build)
+
 ### 1.4 Install VS Code
