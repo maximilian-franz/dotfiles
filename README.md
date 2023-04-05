@@ -44,7 +44,9 @@ qtile-extras-git
 ### 1.3 Clone Theme Repo
 
 [Gruvbox-GTK-Theme](https://github.com/Fausto-Korpsvart/Gruvbox-GTK-Theme)
+
 [gruvbox-plus-icon-pack](https://github.com/SylEleuth/gruvbox-plus-icon-pack)
+
 [capitaine-cursors](https://github.com/sainnhe/capitaine-cursors)
 
 ### 1.4 Install VS Code
