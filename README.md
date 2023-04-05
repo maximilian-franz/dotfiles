@@ -40,6 +40,7 @@ yay
 lightdm-settings
 qtile-extras-git
 capitaine-cursors-sainnhe-git
+visual-studio-code-bin
 ```
 
 ### 1.3 Clone Theme Repo
