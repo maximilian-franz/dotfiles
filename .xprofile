@@ -13,6 +13,9 @@ picom &
 # Authorization Manager
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 
+# Backlight Control
+clight &
+
 # Network Applet
 nm-applet &
 

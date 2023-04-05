@@ -134,12 +134,12 @@ keys = [
     Key(
         [],
         "XF86MonBrightnessUp",
-        lazy.spawn("/home/max/.config/qtile/scripts/changeBrightness up"),
+        lazy.spawn("/home/max/.config/qtile/scripts/changeBrightness -inc 0.1"),
     ),
     Key(
         [],
         "XF86MonBrightnessDown",
-        lazy.spawn("/home/max/.config/qtile/scripts/changeBrightness down"),
+        lazy.spawn("/home/max/.config/qtile/scripts/changeBrightness -dec 0.1"),
     ),
     Key(
         [mod],
@@ -248,7 +248,7 @@ screens = [
                 widget.WindowName(**decorations),
                 widget.KeyboardLayout(
                     background=GruvBox.background_2,
-                    configured_keyboards=["de", "us intl"],
+                    configured_keyboards=["uk"],
                 ),
                 widget.Systray(background=GruvBox.background_2, **decorations),
                 widget.Wttr(
