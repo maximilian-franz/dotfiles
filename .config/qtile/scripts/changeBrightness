@@ -3,10 +3,38 @@
 import dbus
 import sys
 
-bus = dbus.SessionBus()
-obj = bus.get_object('org.clight.clight','/org/clight/clight')
+MAX_BAR_LENGTH = 20
+APP_NAME = "changeBrightness"
+CLIGHT_NAME = "org.clight.clight"
+CLIGHT_PATH = "/org/clight/clight"
+NOTIFY_NAME = "org.freedesktop.Notifications"
+NOTIFY_PATH = "/org/freedesktop/Notifications"
+PROPS_NAME = "org.freedesktop.DBus.Properties"
 
-if sys.argv[1] == '-inc':
-	obj.IncBl(float(sys.argv[2]),dbus_interface='org.clight.clight')
-if sys.argv[1] == '-dec':
-	obj.DecBl(float(sys.argv[2]),dbus_interface='org.clight.clight')
+bus = dbus.SessionBus()
+clight_object = bus.get_object(CLIGHT_NAME, CLIGHT_PATH)
+clight_interface = dbus.Interface(clight_object, PROPS_NAME)
+notify_object = bus.get_object(NOTIFY_NAME, NOTIFY_PATH)
+notify_interface = dbus.Interface(notify_object, NOTIFY_NAME)
+
+if sys.argv[1] == "-inc":
+    clight_object.IncBl(float(sys.argv[2]), dbus_interface=CLIGHT_NAME)
+if sys.argv[1] == "-dec":
+    clight_object.DecBl(float(sys.argv[2]), dbus_interface=CLIGHT_NAME)
+
+brightness = round(clight_interface.Get(CLIGHT_NAME, "BlPct"), 2)
+
+icon = "notification-display-brightness-"
+if brightness == 1.0:
+    icon += "full"
+elif brightness < 0.33:
+    icon += "low"
+elif brightness < 0.66:
+    icon += "medium"
+else:
+    icon += "high"
+
+message = "█" * round(brightness * MAX_BAR_LENGTH)
+hints = {"urgency": 1, "x-dunst-stack-tag": APP_NAME}
+
+notify_interface.Notify(APP_NAME, 0, icon, message, "", [], hints, 500)
