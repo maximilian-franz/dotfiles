@@ -134,12 +134,12 @@ keys = [
     Key(
         [],
         "XF86MonBrightnessUp",
-        lazy.spawn("/home/max/.config/qtile/scripts/changeBrightness -inc 0.1"),
+        lazy.spawn("/home/max/.config/qtile/scripts/changeBrightness -inc 0.05"),
     ),
     Key(
         [],
         "XF86MonBrightnessDown",
-        lazy.spawn("/home/max/.config/qtile/scripts/changeBrightness -dec 0.1"),
+        lazy.spawn("/home/max/.config/qtile/scripts/changeBrightness -dec 0.05"),
     ),
     Key(
         [mod],

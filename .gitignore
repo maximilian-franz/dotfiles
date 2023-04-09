@@ -21,6 +21,7 @@
 !.config/wallpapers/
 !.config/xsettingsd/
 !.config/starship.toml
+!.config/clight.conf
 !.profile
 !.xprofile
 !.bashrc
