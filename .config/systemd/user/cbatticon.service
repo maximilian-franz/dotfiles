@@ -1,0 +1,11 @@
+[Unit]
+Description=cbatticon
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/cbatticon -u 2
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
