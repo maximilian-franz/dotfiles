@@ -9,11 +9,10 @@ CLIGHT_NAME = "org.clight.clight"
 CLIGHT_PATH = "/org/clight/clight"
 NOTIFY_NAME = "org.freedesktop.Notifications"
 NOTIFY_PATH = "/org/freedesktop/Notifications"
-PROPS_NAME = "org.freedesktop.DBus.Properties"
 
 bus = dbus.SessionBus()
 clight_object = bus.get_object(CLIGHT_NAME, CLIGHT_PATH)
-clight_interface = dbus.Interface(clight_object, PROPS_NAME)
+clight_interface = dbus.Interface(clight_object, dbus.PROPERTIES_IFACE)
 notify_object = bus.get_object(NOTIFY_NAME, NOTIFY_PATH)
 notify_interface = dbus.Interface(notify_object, NOTIFY_NAME)
 
@@ -23,7 +22,6 @@ if sys.argv[1] == "-dec":
     clight_object.DecBl(float(sys.argv[2]), dbus_interface=CLIGHT_NAME)
 
 brightness = round(clight_interface.Get(CLIGHT_NAME, "BlPct"), 2)
-
 icon = "notification-display-brightness-"
 if brightness == 1.0:
     icon += "full"

@@ -1,38 +1,8 @@
-# Xsettings
-xsettingsd &
-
 # Disable beep
 xset -b
 
-# Session lock
+# Session Lock
 xss-lock --transfer-sleep-lock -- ~/.config/i3/scripts/blur-lock &
 
-# Compositor
-picom &
-
-# Authorization Manager
-/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
-
-# Backlight Control
-clight &
-
-# Network Applet
-nm-applet &
-
-# Bluetooth Applet
-blueman-applet &
-
-# Battery Indicator
-cbatticon -u 2 &
-
-# Notification Manager
-dunst &
-
-# Volume Applet
-pasystray &
-
-# Set monitor layout
-autorandr --change &
-
-# Conky
-conky -c ~/.config/conky/minimal.conf -d
+# XDG Autostart
+dex -a
