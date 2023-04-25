@@ -1,10 +1,11 @@
-from libqtile import bar, layout
+from libqtile import bar, layout, hook
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 
 mod = "mod4"
 terminal = guess_terminal()
+hook.subscribe.startup_once(lazy.spawn("eww daemon && eww open bar"))
 
 keys = [
     Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
@@ -12,12 +13,21 @@ keys = [
     Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
     Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
     Key([mod], "Tab", lazy.layout.next(), desc="Move window focus to other window"),
-    Key([mod, "shift"], "h", lazy.layout.shuffle_left(), desc="Move window to the left"),
-    Key([mod, "shift"], "l", lazy.layout.shuffle_right(), desc="Move window to the right"),
+    Key(
+        [mod, "shift"], "h", lazy.layout.shuffle_left(), desc="Move window to the left"
+    ),
+    Key(
+        [mod, "shift"],
+        "l",
+        lazy.layout.shuffle_right(),
+        desc="Move window to the right",
+    ),
     Key([mod, "shift"], "j", lazy.layout.shuffle_down(), desc="Move window down"),
     Key([mod, "shift"], "k", lazy.layout.shuffle_up(), desc="Move window up"),
     Key([mod, "control"], "h", lazy.layout.grow_left(), desc="Grow window to the left"),
-    Key([mod, "control"], "l", lazy.layout.grow_right(), desc="Grow window to the right"),
+    Key(
+        [mod, "control"], "l", lazy.layout.grow_right(), desc="Grow window to the right"
+    ),
     Key([mod, "control"], "j", lazy.layout.grow_down(), desc="Grow window down"),
     Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow window up"),
     Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
@@ -26,6 +36,23 @@ keys = [
     Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
+    Key(
+        [mod],
+        "d",
+        lazy.spawn(
+            "rofi -modi drun -show drun -show-icons -config ~/.config/rofi/rofidmenu.rasi"
+        ),
+        desc="Spawn an application using rofi",
+    ),
+    Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer -D pulse sset Master 1%+")),
+    Key([], "XF86AudioLowerVolume", lazy.spawn("amixer -D pulse sset Master 1%-")),
+    Key([], "XF86AudioMute", lazy.spawn("amixer -D pulse sset Master toggle")),
+    Key([], "XF86AudioPrev", lazy.spawn("playerctl previous")),
+    Key([], "XF86AudioNext", lazy.spawn("playerctl next")),
+    Key([], "XF86AudioPlay", lazy.spawn("playerctl play-pause")),
+    Key([], "XF86AudioStop", lazy.spawn("playerctl stop")),
+    Key([], "XF86MonBrightnessUp", lazy.spawn("brightnessctl s 1%+")),
+    Key([], "XF86MonBrightnessDown", lazy.spawn("brightnessctl s 1%-")),
 ]
 
 groups = [Group(i) for i in "123456789"]
@@ -33,8 +60,18 @@ groups = [Group(i) for i in "123456789"]
 for i in groups:
     keys.extend(
         [
-            Key([mod], i.name, lazy.group[i.name].toscreen(), desc=f"Switch to group {i.name}"),
-            Key([mod, "shift"], i.name, lazy.window.togroup(i.name, switch_group=True), desc=f"Switch to & move focused window to group {i.name}"),
+            Key(
+                [mod],
+                i.name,
+                lazy.group[i.name].toscreen(),
+                desc=f"Switch to group {i.name}",
+            ),
+            Key(
+                [mod, "shift"],
+                i.name,
+                lazy.window.togroup(i.name, switch_group=True),
+                desc=f"Switch to & move focused window to group {i.name}",
+            ),
         ]
     )
 
@@ -51,12 +88,23 @@ widget_defaults = dict(
 extension_defaults = widget_defaults.copy()
 
 screens = [
-    Screen(top=bar.Gap(24), wallpaper="/home/max/.config/wallpapers/gruvbox01.png", wallpaper_mode="fill"),
+    Screen(
+        top=bar.Gap(24),
+        wallpaper="/home/max/.config/wallpapers/gruvbox01.png",
+        wallpaper_mode="fill",
+    ),
 ]
 
 mouse = [
-    Drag([mod], "Button1", lazy.window.set_position_floating(), start=lazy.window.get_position()),
-    Drag([mod], "Button3", lazy.window.set_size_floating(), start=lazy.window.get_size()),
+    Drag(
+        [mod],
+        "Button1",
+        lazy.window.set_position_floating(),
+        start=lazy.window.get_position(),
+    ),
+    Drag(
+        [mod], "Button3", lazy.window.set_size_floating(), start=lazy.window.get_size()
+    ),
     Click([mod], "Button2", lazy.window.bring_to_front()),
 ]
 
