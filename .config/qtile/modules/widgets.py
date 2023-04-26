@@ -1,6 +1,6 @@
 from libqtile import bar, widget
 from .theme import GruvBox
-from .utils import parse_window_name, get_network_interface
+from .utils import parse_window_name
 
 top_bar = bar.Bar(
     [
@@ -12,21 +12,20 @@ top_bar = bar.Bar(
             rounded=False,
             this_current_screen_border=GruvBox.green_hard,
             this_screen_border=GruvBox.background_2,
-            padding=3,
+            padding=5,
         ),
         widget.Sep(),
         widget.WindowName(parse_text=parse_window_name),
-        widget.Sep(),
-        widget.Systray(),
+        widget.Systray(background=GruvBox.background_1),
         widget.Wttr(
             format="%t %C",
             location={"Potsdam": "Potsdam"},
-            background=GruvBox.aqua_hard,
+            background=GruvBox.yellow_soft,
             foreground=GruvBox.background,
         ),
         widget.Clock(
             format="%H:%M:%S",
-            background=GruvBox.green_hard,
+            background=GruvBox.green_soft,
             foreground=GruvBox.background,
         ),
     ],
