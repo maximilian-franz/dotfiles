@@ -15,6 +15,7 @@ top_bar = bar.Bar(
             padding=5,
         ),
         widget.WindowName(parse_text=parse_window_name),
+        widget.Chord(),
         widget.Systray(background=COLOR_SCHEME.background_1, padding=10),
         widget.Spacer(length=5, background=COLOR_SCHEME.background_1),
         widget.Memory(
