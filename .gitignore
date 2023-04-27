@@ -22,10 +22,8 @@
 !.config/xsettingsd/
 !.config/starship.toml
 !.config/clight.conf
-!.config/eww/
 !.profile
 !.xprofile
-!.bashrc
 !.gitignore
 **/*.bak
 **/__pycache__
