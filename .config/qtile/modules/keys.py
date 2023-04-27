@@ -5,6 +5,8 @@ from .constants import MOD
 
 terminal = guess_terminal()
 
+favorites = ["firefox", "thunar", "code", "thunderbird"]
+
 keys = [
     Key([MOD], "h", lazy.layout.left(), desc="Move focus to left"),
     Key([MOD], "l", lazy.layout.right(), desc="Move focus to right"),
@@ -35,4 +37,5 @@ keys = [
     Key([], "XF86AudioStop", lazy.spawn("playerctl stop")),
     Key([], "XF86MonBrightnessUp", lazy.spawn("brightnessctl s 1%+")),
     Key([], "XF86MonBrightnessDown", lazy.spawn("brightnessctl s 1%-")),
+    *(Key([MOD], f"F{i}", lazy.spawn(f)) for i, f in enumerate(favorites, start=1)),
 ]

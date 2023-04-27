@@ -14,9 +14,9 @@ top_bar = bar.Bar(
             this_screen_border=GruvBox.background_2,
             padding=5,
         ),
-        widget.Sep(),
         widget.WindowName(parse_text=parse_window_name),
-        widget.Systray(background=GruvBox.background_1),
+        widget.Systray(background=GruvBox.background_1, padding=10),
+        widget.Spacer(length=5, background=GruvBox.background_1),
         widget.Wttr(
             format="%t %C",
             location={"Potsdam": "Potsdam"},

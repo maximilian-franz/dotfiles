@@ -18,5 +18,7 @@ def parse_window_name(raw_name: str):
         components = [get_icon_for_app(c) for c in components]
     else:
         components[-1] = get_icon_for_app(components[-1])
-    shortened_components = [(c if len(c) <= 20 else c[:17] + "...") for c in components]
+    shortened_components = [
+        (c.split()[0] + "..." if len(c) > 20 else c) for c in components
+    ]
     return "  ".join(reversed(shortened_components))
