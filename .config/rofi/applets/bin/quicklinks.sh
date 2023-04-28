@@ -22,9 +22,9 @@ elif [[ ( "$theme" == *'type-2'* ) || ( "$theme" == *'type-4'* ) ]]; then
 fi
 
 if [[ ( "$theme" == *'type-1'* ) || ( "$theme" == *'type-5'* ) ]]; then
-	efonts="Hack Nerd Font Mono 10"
+	efonts="Hack Nerd Font 10"
 else
-	efonts="Hack Nerd Font Mono 28"
+	efonts="Hack Nerd Font 28"
 fi
 
 # Options
