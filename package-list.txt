@@ -29,6 +29,7 @@ python-pip
 python-pylint
 python-pyxdg
 qtile
+qt6ct
 rclone
 rofi
 starship
