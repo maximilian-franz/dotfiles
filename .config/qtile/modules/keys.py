@@ -2,10 +2,12 @@ from libqtile.config import Group, Key, KeyChord
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 from .constants import FAVORITES, GROUPS, LAUNCHER_CMD, LOCK_CMD, MOD, POWER_MENU_CMD
+from .utils import change_brightness, change_volume, toggle_mute
 
 terminal = guess_terminal()
 
 groups = [Group(g) for g in GROUPS]
+
 
 keys = [
     Key([MOD], "h", lazy.layout.left(), desc="Move focus to left"),
@@ -44,15 +46,15 @@ keys = [
     Key([MOD], "d", lazy.spawn(LAUNCHER_CMD), desc="Spawn an application"),
     Key([MOD, "shift"], "e", lazy.spawn(POWER_MENU_CMD), desc="Open the power menu"),
     Key([MOD, "shift"], "l", lazy.spawn(LOCK_CMD), desc="Lock the screen"),
-    Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer -D pulse sset Master 1%+")),
-    Key([], "XF86AudioLowerVolume", lazy.spawn("amixer -D pulse sset Master 1%-")),
-    Key([], "XF86AudioMute", lazy.spawn("amixer -D pulse sset Master toggle")),
+    Key([], "XF86AudioRaiseVolume", lazy.function(change_volume, 2)),
+    Key([], "XF86AudioLowerVolume", lazy.function(change_volume, -2)),
+    Key([], "XF86AudioMute", lazy.function(toggle_mute)),
     Key([], "XF86AudioPrev", lazy.spawn("playerctl previous")),
     Key([], "XF86AudioNext", lazy.spawn("playerctl next")),
     Key([], "XF86AudioPlay", lazy.spawn("playerctl play-pause")),
     Key([], "XF86AudioStop", lazy.spawn("playerctl stop")),
-    Key([], "XF86MonBrightnessUp", lazy.spawn("brightnessctl s 1%+")),
-    Key([], "XF86MonBrightnessDown", lazy.spawn("brightnessctl s 1%-")),
+    Key([], "XF86MonBrightnessUp", lazy.function(change_brightness, 2)),
+    Key([], "XF86MonBrightnessDown", lazy.function(change_brightness, -2)),
     *(Key([MOD], f"F{i}", lazy.spawn(f)) for i, f in enumerate(FAVORITES, start=1)),
     *[
         group_key

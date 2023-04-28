@@ -1,4 +1,5 @@
 # dotfiles
+
 My dotfiles
 
 ## 1 Installation
@@ -11,47 +12,49 @@ see [here](https://www.atlassian.com/git/tutorials/dotfiles)
 
 Main Repos
 ```shell
-picom
-qtile
-lightdm
-lightdm-slick-greeter
-networkmanager
-network-manager-applet
+alacritty
+autorandr
+arandr
 blueman
 bluez
 bluez-utils
 cbatticon
+fish
 dunst
+picom
+qtile
+keepassxc
+lightdm
+lightdm-slick-greeter
+lxappearance
+networkmanager
+network-manager-applet
 pasystray
-autorandr
-conkz
+playerctl
+plocate
+python-black
+python-dbus-next
+python-iwlib
+python-pylint
+python-xlib
 rofi
 starship
-python-xlib
-alacritty
-ttf-hack-nerd
-lxappearance
 thunar
-xss-lock
+ttf-hack-nerd
 ```
 
 AUR
 ```shell
-yay
-lightdm-settings
-qtile-extras-git
-capitaine-cursors-sainnhe-git
-visual-studio-code-bin
+betterlockscreen
 clight
-i3lock-color
+lightdm-settings
+visual-studio-code-bin
+xcursor-simp1e-gruvbox-dark
+yay
 ```
 
-### 1.3 Clone Theme Repo
+### 1.3 Themes
 
 [Gruvbox-GTK-Theme](https://github.com/Fausto-Korpsvart/Gruvbox-GTK-Theme)
 
 [gruvbox-plus-icon-pack](https://github.com/SylEleuth/gruvbox-plus-icon-pack)
-
-[capitaine-cursors](https://github.com/sainnhe/capitaine-cursors) (if `capitaine-cursors-sainnhe-git` won't build)
-
-### 1.4 Install VS Code

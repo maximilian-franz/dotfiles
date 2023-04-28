@@ -27,5 +27,8 @@ floating_layout = layout.Floating(
         Match(wm_class="Steam", title="Friends List"),  # Steam Friends List
         Match(title="branchdialog"),  # gitk
         Match(title="pinentry"),  # GPG key password entry
-    ]
+    ],
+    border_width=0,
+    border_focus="#000000",
+    border_normal="#000000",
 )
