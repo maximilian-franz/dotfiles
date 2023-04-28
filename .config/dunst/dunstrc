@@ -1,48 +1,47 @@
 [global]
-monitor = 0
+always_run_script = true
+alignment = left
+browser = /usr/bin/firefox -new-tab
+class = Dunst
 follow = mouse
-indicate_hidden = yes
-shrink = no
-separator_height = 0
-padding = 16
-horizontal_padding = 24
-frame_width = 2
-frame_color = "#A89984"
-sort = no
-idle_threshold = 120
 font = Hack Nerd Font 10
+format = "<b>%s</b>\n%b"
+frame_color = "#A89984"
+frame_width = 0
+hide_duplicate_count = yes
+history_length = 20
+horizontal_padding = 24
+icon_path = /usr/share/icons/gruvbox-plus/status/48
+idle_threshold = 120
+ignore_newline = no
+indicate_hidden = yes
 line_height = 4
 markup = full
-format = "<b>%s</b>\n%b"
-alignment = left
+monitor = 0
+padding = 16
+separator_height = 0
+shrink = no
 show_age_threshold = 60
-word_wrap = yes
-ignore_newline = no
-stack_duplicates = false
-hide_duplicate_count = yes
 show_indicators = no
+sort = no
+stack_duplicates = false
 sticky_history = yes
-history_length = 20
-browser = /usr/bin/firefox -new-tab
-always_run_script = true
 title = Dunst
-class = Dunst
-icon_path = /usr/share/icons/gruvbox-plus/status/48
+word_wrap = yes
 
 [urgency_low]
 background = "#3C3836"
 foreground = "#FBF1C7"
-timeout = 2
+timeout = 1
 
 [urgency_normal]
 background = "#3C3836"
 foreground = "#FBF1C7"
-timeout = 4
+timeout = 2
 
 [urgency_critical]
-background = "#3C3836"
-foreground = "#FBF1C7"
-frame_color = "#FB4934"
+background = "#FB4934"
+foreground = "#3C3836"
 timeout = 0
 
 [volume_control]
