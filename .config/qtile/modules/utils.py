@@ -1,7 +1,7 @@
 import psutil
 import re
+from Xlib import display as xdisplay
 from .constants import APP_ICONS, MAX_WINDOW_NAME_COMPONENT_LENGTH
-
 
 def get_icon_for_app(app_name: str):
     return APP_ICONS.get("-".join(app_name.lower().split()), app_name)
@@ -10,6 +10,29 @@ def get_icon_for_app(app_name: str):
 def get_network_interface():
     interfaces = list(psutil.net_if_addrs().keys())
     return interfaces[1] if len(interfaces) > 1 else "lo"
+
+
+def get_number_of_screens():
+    num_screens = 0
+    try:
+        display = xdisplay.Display()
+        screen = display.screen()
+        resources = screen.root.xrandr_get_screen_resources()
+
+        for output in resources.outputs:
+            monitor = display.xrandr_get_output_info(output, resources.config_timestamp)
+            preferred = False
+            if hasattr(monitor, "preferred"):
+                preferred = monitor.preferred
+            elif hasattr(monitor, "num_preferred"):
+                preferred = monitor.num_preferred
+            if preferred:
+                num_screens += 1
+    except Exception as e:
+        # always setup at least one monitor
+        return 1
+    else:
+        return num_screens
 
 
 def get_unique_values(seq):
