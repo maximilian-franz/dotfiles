@@ -9,7 +9,7 @@ from modules.theme import GruvBox
 auto_minimize = False
 extension_defaults = dict(
     font=FONT,
-    fontsize=14,
+    fontsize=16,
     padding=10,
     background=COLOR_SCHEME.background,
     foreground=COLOR_SCHEME.foreground,
