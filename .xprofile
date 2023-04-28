@@ -1,8 +1,5 @@
 # Disable beep
 xset -b
 
-# Session Lock
-xss-lock --transfer-sleep-lock -- ~/.config/i3/scripts/blur-lock &
-
 # XDG Autostart
 dex -a

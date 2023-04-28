@@ -6,53 +6,41 @@ My dotfiles
 
 ### 1.1 Setup repository on new machine
 
-see [here](https://www.atlassian.com/git/tutorials/dotfiles)
+Run the following to clone the repository.
 
-### 1.2 Install dependencies (arch)
-
-Main Repos
-```shell
-picom
-qtile
-lightdm
-lightdm-slick-greeter
-networkmanager
-network-manager-applet
-blueman
-bluez
-bluez-utils
-cbatticon
-dunst
-pasystray
-autorandr
-conkz
-rofi
-starship
-python-xlib
-alacritty
-ttf-hack-nerd
-lxappearance
-thunar
-xss-lock
+```bash
+alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME' >> $HOME/.bashrc && \
+source .bashrc && \
+echo ".dotfiles" >> .gitignore && \
+git clone --bare git@github.com:maximilian-franz/dotfiles.git $HOME/.dotfiles && \
+config config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*" && \
+config config --local status.showUntrackedFiles no && \
+config checkout
 ```
 
-AUR
-```shell
-yay
-lightdm-settings
-qtile-extras-git
-capitaine-cursors-sainnhe-git
-visual-studio-code-bin
+In case `config checkout` fails, either remove the offending files or move them to a backup folder.
+
+### 1.2 Install packages
+
+Run `pacman -S - < package-list.txt`.
+
+After that, install the following packages from the AUR.
+
+```
+appimagelauncher-git
+betterlockscreen
 clight
-i3lock-color
+cura-bin
+lightdm-settings
+ocs-2url
+spicetify-cli
+spotify
+visual-studio-code-bin
+xcursor-simp1e-gruvbox-dark
 ```
 
-### 1.3 Clone Theme Repo
+### 1.3 Install themes
 
-[Gruvbox-GTK-Theme](https://github.com/Fausto-Korpsvart/Gruvbox-GTK-Theme)
+Download the latest release of [Gruvbox GTK Theme](https://www.pling.com/p/1681313/) and extract it to `$HOME/.themes`.
 
-[gruvbox-plus-icon-pack](https://github.com/SylEleuth/gruvbox-plus-icon-pack)
-
-[capitaine-cursors](https://github.com/sainnhe/capitaine-cursors) (if `capitaine-cursors-sainnhe-git` won't build)
-
-### 1.4 Install VS Code
+Download the latest release of [gruvbox-plus-icon-pack](https://github.com/SylEleuth/gruvbox-plus-icon-pack) and extract it to `$HOME/.icons`.
