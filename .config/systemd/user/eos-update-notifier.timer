@@ -3,7 +3,7 @@ Description=EOS update notifier runs periodically (weekly) and soon after a rebo
 
 [Timer]
 OnStartupSec=300 seconds
-OnCalendar=weekly
+OnCalendar=daily
 # Persistent=true
  
 [Install]
