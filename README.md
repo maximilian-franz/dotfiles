@@ -6,55 +6,41 @@ My dotfiles
 
 ### 1.1 Setup repository on new machine
 
-see [here](https://www.atlassian.com/git/tutorials/dotfiles)
+Run the following to clone the repository.
 
-### 1.2 Install dependencies (arch)
-
-Main Repos
-```shell
-alacritty
-autorandr
-arandr
-blueman
-bluez
-bluez-utils
-cbatticon
-fish
-dunst
-picom
-qtile
-keepassxc
-lightdm
-lightdm-slick-greeter
-lxappearance
-networkmanager
-network-manager-applet
-pasystray
-playerctl
-plocate
-python-black
-python-dbus-next
-python-iwlib
-python-pylint
-python-xlib
-rofi
-starship
-thunar
-ttf-hack-nerd
+```bash
+alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME' >> $HOME/.bashrc && \
+source .bashrc && \
+echo ".dotfiles" >> .gitignore && \
+git clone --bare git@github.com:maximilian-franz/dotfiles.git $HOME/.dotfiles && \
+config config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*" && \
+config config --local status.showUntrackedFiles no && \
+config checkout
 ```
 
-AUR
-```shell
+In case `config checkout` fails, either remove the offending files or move them to a backup folder.
+
+### 1.2 Install packages
+
+Run `pacman -S - < package-list.txt`.
+
+After that, install the following packages from the AUR.
+
+```
+appimagelauncher-git
 betterlockscreen
 clight
+cura-bin
 lightdm-settings
+ocs-2url
+spicetify-cli
+spotify
 visual-studio-code-bin
 xcursor-simp1e-gruvbox-dark
-yay
 ```
 
-### 1.3 Themes
+### 1.3 Install themes
 
-[Gruvbox-GTK-Theme](https://github.com/Fausto-Korpsvart/Gruvbox-GTK-Theme)
+Download the latest release of [Gruvbox GTK Theme](https://www.pling.com/p/1681313/) and extract it to `$HOME/.themes`.
 
-[gruvbox-plus-icon-pack](https://github.com/SylEleuth/gruvbox-plus-icon-pack)
+Download the latest release of [gruvbox-plus-icon-pack](https://github.com/SylEleuth/gruvbox-plus-icon-pack) and extract it to `$HOME/.icons`.

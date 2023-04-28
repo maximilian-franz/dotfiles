@@ -22,6 +22,7 @@
 !.config/xsettingsd/
 !.config/starship.toml
 !.config/clight.conf
+!package-list.txt
 !.profile
 !.xprofile
 !.gitignore
