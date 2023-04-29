@@ -58,17 +58,17 @@ keys = [
     *(Key([MOD], f"F{i}", lazy.spawn(f)) for i, f in enumerate(FAVORITES, start=1)),
     *[
         group_key
-        for g in groups
+        for (i, g) in enumerate(groups, start=1)
         for group_key in (
             Key(
                 [MOD],
-                g.name,
+                str(i),
                 lazy.group[g.name].toscreen(),
                 desc=f"Switch to group {g.name}",
             ),
             Key(
                 [MOD, "shift"],
-                g.name,
+                str(i),
                 lazy.window.togroup(g.name, switch_group=True),
                 desc=f"Switch to & move focused window to group {g.name}",
             ),

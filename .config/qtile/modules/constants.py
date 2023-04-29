@@ -11,7 +11,7 @@ LOCK_CMD = "betterlockscreen -l"
 MAX_WINDOW_NAME_COMPONENT_LENGTH = 50
 MOD = "mod4"
 POWER_MENU_CMD = str(CONFIG_DIR / "rofi" / "scripts" / "powermenu_t4")
-WALLPAPER = CONFIG_DIR / "wallpapers" / "temple_03.jpeg"
+WALLPAPER = CONFIG_DIR / "wallpapers" / "gruvbox19.png"
 APP_ICONS = {
     "discord": "󰙯",
     "github": "󰊤",
@@ -19,6 +19,7 @@ APP_ICONS = {
     "gmail": "󰊫",
     "google": "󰊭",
     "google-maps": "󰗵",
+    "keepassxc": "󰌋",
     "mozilla-firefox": "󰈹",
     "mozilla-thunderbird": "󰇮",
     "reddit": "󰑍",

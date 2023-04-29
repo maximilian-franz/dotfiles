@@ -1,6 +1,6 @@
 from libqtile.dgroups import simple_key_binder
 from modules.constants import COLOR_SCHEME, FONT
-from modules.keys import keys
+from modules.keys import groups, keys
 from modules.layouts import layouts, floating_layout
 from modules.mouse import mouse
 from modules.screens import screens
