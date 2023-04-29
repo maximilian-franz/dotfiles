@@ -1,10 +1,14 @@
-# dotfiles
+# My Dotfiles
 
-My dotfiles
+[![OS endeavoros](https://img.shields.io/badge/OS-endeavoros-B16286)](https://endeavouros.com/) [![WM qtile](https://img.shields.io/badge/WM-qtile-458588)](http://www.qtile.org/) [![Colors gruvbox](https://img.shields.io/badge/Colors-gruvbox-98971A)](https://github.com/morhetz/gruvbox)
 
-## 1 Installation
+# Screenshots
 
-### 1.1 Setup repository on new machine
+![rice](https://user-images.githubusercontent.com/80772628/235314311-668f7d1c-e526-4400-a86f-8db7fe8ed5e0.png)
+
+## Installation
+
+### Repository Setup
 
 Run the following to clone the repository.
 
@@ -20,7 +24,7 @@ config checkout
 
 In case `config checkout` fails, either remove the offending files or move them to a backup folder.
 
-### 1.2 Install packages
+### Installing packages
 
 Run `pacman -S - < package-list.txt`.
 
@@ -39,7 +43,7 @@ visual-studio-code-bin
 xcursor-simp1e-gruvbox-dark
 ```
 
-### 1.3 Install themes
+### Installing themes
 
 Download the latest release of [Gruvbox GTK Theme](https://www.pling.com/p/1681313/) and extract it to `$HOME/.themes`.
 
