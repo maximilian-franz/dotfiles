@@ -66,7 +66,7 @@ def send_notification(
 
 
 def get_icon_for_app(app_name: str):
-    return Settings.theme.icons.get("-".join(app_name.lower().split()), app_name)
+    return Settings.icons.get("-".join(app_name.lower().split()), app_name)
 
 
 def get_shortened_components(components: list[str]):
@@ -110,7 +110,7 @@ def change_volume(qtile, delta: int):
     mixer = alsaaudio.Mixer("Master")
     if sum(mixer.getmute()) > 0:
         mixer.setmute(0)
-    new_volume = mixer.getvolume()[0] + delta
+    new_volume = max(0, min(mixer.getvolume()[0] + delta, 100))
     mixer.setvolume(new_volume)
     send_notification(
         get_volume_bar(new_volume),
@@ -171,10 +171,3 @@ def change_brightness(qtile, delta: int):
         app="changeBrightness",
         icon_name=get_brightness_icon(brightness),
     )
-
-
-# Theme Control
-
-
-def toggle_theme(qtile):
-    pass
