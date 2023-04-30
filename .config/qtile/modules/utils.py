@@ -2,7 +2,7 @@ import alsaaudio
 import dbus
 import re
 from Xlib import display as xdisplay
-from .constants import APP_ICONS, MAX_WINDOW_NAME_COMPONENT_LENGTH
+from .settings import Settings
 
 session_bus = dbus.SessionBus()
 
@@ -66,11 +66,11 @@ def send_notification(
 
 
 def get_icon_for_app(app_name: str):
-    return APP_ICONS.get("-".join(app_name.lower().split()), app_name)
+    return Settings.icons.get("-".join(app_name.lower().split()), app_name)
 
 
 def get_shortened_components(components: list[str]):
-    if sum(len(c) for c in components) > MAX_WINDOW_NAME_COMPONENT_LENGTH:
+    if sum(len(c) for c in components) > Settings.max_window_name_component_length:
         longest_component = max(components[1:], key=len)
         components[components.index(longest_component)] = "..."
         return get_unique_values(get_shortened_components(components))
@@ -110,7 +110,7 @@ def change_volume(qtile, delta: int):
     mixer = alsaaudio.Mixer("Master")
     if sum(mixer.getmute()) > 0:
         mixer.setmute(0)
-    new_volume = mixer.getvolume()[0] + delta
+    new_volume = max(0, min(mixer.getvolume()[0] + delta, 100))
     mixer.setvolume(new_volume)
     send_notification(
         get_volume_bar(new_volume),

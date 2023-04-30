@@ -1,5 +1,14 @@
-class GruvBox:
+import pathlib
+
+CONFIG_DIR = pathlib.Path.home() / ".config"
+
+
+class Gruvbox:
+    """Gruvbox Color Scheme"""
+
     class Dark:
+        """Gruvbox Color Scheme Dark Variant"""
+
         background = "#282828"
         background_hard = "#1D2021"
         background_soft = "#32302F"
@@ -28,6 +37,8 @@ class GruvBox:
         orange_soft = "#FE8019"
 
     class Light:
+        """Gruvbox Color Scheme Light Variant"""
+
         background = "#FBF1C7"
         background_hard = "#F9F5D7"
         background_soft = "#F2E5BC"
@@ -54,3 +65,44 @@ class GruvBox:
         aqua_soft = "#427B58"
         orange_hard = "#D65D0E"
         orange_soft = "#AF3A03"
+
+
+class Commands:
+    """Custom Command Settings"""
+
+    launcher = str(CONFIG_DIR / "rofi" / "scripts" / "launcher_t3")
+    lock = "betterlockscreen -l"
+    power_menu = str(CONFIG_DIR / "rofi" / "scripts" / "powermenu_t4")
+    quicklinks = str(CONFIG_DIR / "rofi" / "applets" / "bin" / "quicklinks.sh")
+
+
+class Settings:
+    """Settings"""
+
+    colors = Gruvbox.Dark
+    commands = Commands
+    favorites = ["firefox", "thunar", "code", "thunderbird"]
+    font = "Hack Nerd Font"
+    groups = "123456789"
+    icons = {
+        "discord": "󰙯",
+        "github": "󰊤",
+        "gitlab": "󰮠",
+        "gmail": "󰊫",
+        "google": "󰊭",
+        "google-maps": "󰗵",
+        "keepassxc": "󰌋",
+        "mozilla-firefox": "󰈹",
+        "mozilla-thunderbird": "󰇮",
+        "reddit": "󰑍",
+        "spotify": "󰓇",
+        "stack-exchange": "󰘋",
+        "stack-overflow": "󰓌",
+        "steam": "󰓓",
+        "thunar": "󰉋",
+        "visual-studio-code": "󰨞",
+        "youtube": "󰗃",
+    }
+    max_window_name_component_length = 50
+    mod_key = "mod4"
+    wallpaper = CONFIG_DIR / "wallpapers" / "gruvbox_anime-gruv-dark.png"

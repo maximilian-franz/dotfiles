@@ -30,19 +30,19 @@ fi
 # Options
 layout=`cat ${theme} | grep 'USE_ICON' | cut -d'=' -f2`
 if [[ "$layout" == 'NO' ]]; then
-	option_1=" Google"
-	option_2=" Gmail"
-	option_3=" Youtube"
-	option_4=" Github"
-	option_5=" Reddit"
-	option_6=" Twitter"
+	option_1=" YouTube"
+	option_2=" Github"
+	option_3="󰰐 Moodle"
+	option_4="󰃭 Calendar"
+	option_5="󱚟 CP Judge"
+	option_6="󰰜 Qtile Docs"
 else
-	option_1=""
-	option_2=""
-	option_3=""
-	option_4=""
-	option_5=""
-	option_6=""
+	option_1=""
+	option_2=""
+	option_3="󰰐"
+	option_4="󰃭"
+	option_5="󱚟"
+	option_6="󰰜"
 fi
 
 # Rofi CMD
@@ -65,17 +65,17 @@ run_rofi() {
 # Execute Command
 run_cmd() {
 	if [[ "$1" == '--opt1' ]]; then
-		xdg-open 'https://www.google.com/'
-	elif [[ "$1" == '--opt2' ]]; then
-		xdg-open 'https://mail.google.com/'
-	elif [[ "$1" == '--opt3' ]]; then
 		xdg-open 'https://www.youtube.com/'
-	elif [[ "$1" == '--opt4' ]]; then
+	elif [[ "$1" == '--opt2' ]]; then
 		xdg-open 'https://www.github.com/'
+	elif [[ "$1" == '--opt3' ]]; then
+		xdg-open 'https://moodle.hpi.com/'
+	elif [[ "$1" == '--opt4' ]]; then
+		xdg-open 'https://calendar.google.com/'
 	elif [[ "$1" == '--opt5' ]]; then
-		xdg-open 'https://www.reddit.com/'
+		xdg-open 'https://hpi.de/friedrich/judge/team'
 	elif [[ "$1" == '--opt6' ]]; then
-		xdg-open 'https://www.twitter.com/'
+		xdg-open 'http://docs.qtile.org/en/stable/'
 	fi
 }
 

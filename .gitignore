@@ -7,7 +7,8 @@
 !.config/conky/
 !.config/dunst/
 !.config/fish/
-!.config/gtk-*/
+!.config/gtk-3.0/
+!.config/gtk-4.0/
 !.config/i3/
 !.config/picom/
 !.config/polybar/
