@@ -2,7 +2,7 @@ import alsaaudio
 import dbus
 import re
 from Xlib import display as xdisplay
-from .constants import APP_ICONS, MAX_WINDOW_NAME_COMPONENT_LENGTH
+from .settings import Settings
 
 session_bus = dbus.SessionBus()
 
@@ -66,11 +66,11 @@ def send_notification(
 
 
 def get_icon_for_app(app_name: str):
-    return APP_ICONS.get("-".join(app_name.lower().split()), app_name)
+    return Settings.theme.icons.get("-".join(app_name.lower().split()), app_name)
 
 
 def get_shortened_components(components: list[str]):
-    if sum(len(c) for c in components) > MAX_WINDOW_NAME_COMPONENT_LENGTH:
+    if sum(len(c) for c in components) > Settings.max_window_name_component_length:
         longest_component = max(components[1:], key=len)
         components[components.index(longest_component)] = "..."
         return get_unique_values(get_shortened_components(components))
@@ -171,3 +171,10 @@ def change_brightness(qtile, delta: int):
         app="changeBrightness",
         icon_name=get_brightness_icon(brightness),
     )
+
+
+# Theme Control
+
+
+def toggle_theme(qtile):
+    pass

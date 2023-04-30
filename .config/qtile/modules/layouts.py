@@ -1,12 +1,12 @@
 from libqtile import layout
 from libqtile.config import Match
-from .constants import COLOR_SCHEME
+from .settings import Settings
 
 layouts = [
     layout.Columns(
         border_width=1,
-        border_focus=COLOR_SCHEME.green_hard,
-        border_normal=COLOR_SCHEME.background_soft,
+        border_focus=Settings.theme.colors.green_hard,
+        border_normal=Settings.theme.colors.background_soft,
         margin=10,
         margin_on_single=0,
     ),

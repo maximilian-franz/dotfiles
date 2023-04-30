@@ -1,22 +1,24 @@
 from libqtile.config import Group, Key, KeyChord
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
-from .constants import FAVORITES, GROUPS, LAUNCHER_CMD, LOCK_CMD, MOD, POWER_MENU_CMD
+from .settings import Settings
 from .utils import change_brightness, change_volume, toggle_mute
 
 terminal = guess_terminal()
 
-groups = [Group(g) for g in GROUPS]
+groups = [Group(g) for g in Settings.groups]
 
 
 keys = [
-    Key([MOD], "h", lazy.layout.left(), desc="Move focus to left"),
-    Key([MOD], "l", lazy.layout.right(), desc="Move focus to right"),
-    Key([MOD], "j", lazy.layout.down(), desc="Move focus down"),
-    Key([MOD], "k", lazy.layout.up(), desc="Move focus up"),
-    Key([MOD], "Tab", lazy.layout.next(), desc="Move focus to other window"),
+    Key([Settings.mod_key], "h", lazy.layout.left(), desc="Move focus to left"),
+    Key([Settings.mod_key], "l", lazy.layout.right(), desc="Move focus to right"),
+    Key([Settings.mod_key], "j", lazy.layout.down(), desc="Move focus down"),
+    Key([Settings.mod_key], "k", lazy.layout.up(), desc="Move focus up"),
+    Key(
+        [Settings.mod_key], "Tab", lazy.layout.next(), desc="Move focus to other window"
+    ),
     KeyChord(
-        [MOD],
+        [Settings.mod_key],
         "m",
         [
             Key([], "h", lazy.layout.shuffle_left(), desc="Move window to left"),
@@ -27,7 +29,7 @@ keys = [
         name="Move Window",
     ),
     KeyChord(
-        [MOD],
+        [Settings.mod_key],
         "g",
         [
             Key([], "h", lazy.layout.grow_left(), desc="Grow window to left"),
@@ -37,15 +39,43 @@ keys = [
         ],
         name="Grow Window",
     ),
-    Key([MOD], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
-    Key([MOD], "Return", lazy.spawn(terminal), desc="Launch terminal"),
-    Key([MOD], "space", lazy.next_layout(), desc="Toggle between layouts"),
-    Key([MOD], "q", lazy.window.kill(), desc="Kill focused window"),
-    Key([MOD, "control"], "r", lazy.reload_config(), desc="Reload the config"),
-    Key([MOD, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
-    Key([MOD], "d", lazy.spawn(LAUNCHER_CMD), desc="Spawn an application"),
-    Key([MOD, "shift"], "e", lazy.spawn(POWER_MENU_CMD), desc="Open the power menu"),
-    Key([MOD, "shift"], "l", lazy.spawn(LOCK_CMD), desc="Lock the screen"),
+    Key(
+        [Settings.mod_key], "n", lazy.layout.normalize(), desc="Reset all window sizes"
+    ),
+    Key([Settings.mod_key], "Return", lazy.spawn(terminal), desc="Launch terminal"),
+    Key([Settings.mod_key], "space", lazy.next_layout(), desc="Toggle between layouts"),
+    Key([Settings.mod_key], "q", lazy.window.kill(), desc="Kill focused window"),
+    Key(
+        [Settings.mod_key, "control"],
+        "r",
+        lazy.reload_config(),
+        desc="Reload the config",
+    ),
+    Key([Settings.mod_key, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
+    Key(
+        [Settings.mod_key],
+        "d",
+        lazy.spawn(Settings.commands.launcher),
+        desc="Spawn an application",
+    ),
+    Key(
+        [Settings.mod_key],
+        "e",
+        lazy.spawn(Settings.commands.power_menu),
+        desc="Open the power menu",
+    ),
+    Key(
+        [Settings.mod_key],
+        "l",
+        lazy.spawn(Settings.commands.lock),
+        desc="Lock the screen",
+    ),
+    Key(
+        [Settings.mod_key],
+        "v",
+        lazy.spawn(Settings.commands.quicklinks),
+        desc="Show quick links",
+    ),
     Key([], "XF86AudioRaiseVolume", lazy.function(change_volume, 2)),
     Key([], "XF86AudioLowerVolume", lazy.function(change_volume, -2)),
     Key([], "XF86AudioMute", lazy.function(toggle_mute)),
@@ -55,19 +85,22 @@ keys = [
     Key([], "XF86AudioStop", lazy.spawn("playerctl stop")),
     Key([], "XF86MonBrightnessUp", lazy.function(change_brightness, 2)),
     Key([], "XF86MonBrightnessDown", lazy.function(change_brightness, -2)),
-    *(Key([MOD], f"F{i}", lazy.spawn(f)) for i, f in enumerate(FAVORITES, start=1)),
+    *(
+        Key([Settings.mod_key], f"F{i}", lazy.spawn(f))
+        for i, f in enumerate(Settings.favorites, start=1)
+    ),
     *[
         group_key
         for (i, g) in enumerate(groups, start=1)
         for group_key in (
             Key(
-                [MOD],
+                [Settings.mod_key],
                 str(i),
                 lazy.group[g.name].toscreen(),
                 desc=f"Switch to group {g.name}",
             ),
             Key(
-                [MOD, "shift"],
+                [Settings.mod_key, "shift"],
                 str(i),
                 lazy.window.togroup(g.name, switch_group=True),
                 desc=f"Switch to & move focused window to group {g.name}",
