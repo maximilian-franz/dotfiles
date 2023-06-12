@@ -49,20 +49,20 @@ my_widgets = [
     ),
     widget.WindowName(parse_text=parse_window_name),
     widget.Chord(),
-    widget.Systray(background=Settings.colors.background_soft, padding=10),
-    widget.Spacer(length=5, background=Settings.colors.background_soft),
+    widget.Systray(background=Settings.colors.background, padding=10),
+    widget.Spacer(length=5, background=Settings.colors.background),
+    widget.KeyboardLayout(
+        background=Settings.colors.background_2,
+        configured_keyboards=["de", "us"],
+        fmt="󰌌 {}",
+    ),
     widget.Memory(
-        background=Settings.colors.background_1,
+        background=Settings.colors.background_3,
         format="󰍛 {MemPercent}%",
     ),
     widget.CPU(
-        background=Settings.colors.background_2,
+        background=Settings.colors.background_4,
         format="󰻠 {load_percent}%",
-    ),
-    widget.Wttr(
-        format="%t %C",
-        location={"Potsdam": "Potsdam"},
-        background=Settings.colors.background_3,
     ),
     widget.Clock(
         font=Settings.font + " bold",
@@ -71,7 +71,9 @@ my_widgets = [
         foreground=Settings.colors.background_1,
     ),
 ]
-my_bar = bar.Bar(my_widgets, 24, background=Settings.colors.background)
+my_bar = bar.Bar(
+    my_widgets, 24, background=f"{Settings.colors.background}.0", opacity=1.0
+)
 
 # Screens
 
@@ -158,6 +160,7 @@ keys = [
             Key([], "k", lazy.layout.shuffle_up(), desc="Move window up"),
         ],
         name="Move Window",
+        mode=True,
     ),
     KeyChord(
         [Settings.mod_key],
@@ -169,6 +172,7 @@ keys = [
             Key([], "k", lazy.layout.grow_up(), desc="Grow window up"),
         ],
         name="Grow Window",
+        mode=True,
     ),
     Key(
         [Settings.mod_key], "n", lazy.layout.normalize(), desc="Reset all window sizes"

@@ -1,6 +1,7 @@
 import alsaaudio
 import dbus
 import re
+from libqtile.log_utils import logger
 from Xlib import display as xdisplay
 from .settings import Settings
 
@@ -66,7 +67,14 @@ def send_notification(
 
 
 def get_icon_for_app(app_name: str):
-    return Settings.icons.get("-".join(app_name.lower().split()), app_name)
+    joined = "-".join(app_name.lower().split())
+    icon_map = {}
+    for name in Settings.icons:
+        if (i := joined.find(name)) != -1:
+            icon_map[Settings.icons[name]] = (i, i + len(name))
+    for icon, (i, j) in icon_map.items():
+        app_name = app_name[:i] + icon + app_name[j:]
+    return app_name
 
 
 def get_shortened_components(components: list[str]):
@@ -78,11 +86,11 @@ def get_shortened_components(components: list[str]):
 
 
 def parse_window_name(raw_name: str):
-    components = list(reversed(re.split(r"\s+[-־᠆‐‑‒–—―﹘﹣－·]\s+", raw_name)))
-    if components[0] == "Mozilla Firefox":
-        components = [get_icon_for_app(c) for c in components]
-    else:
-        components[0] = get_icon_for_app(components[0])
+    components = list(reversed(re.split(r"\s+[-־᠆‐‑‒–—―﹘﹣－·•]\s+", raw_name)))
+    app_name = components[0]
+    components[0] = get_icon_for_app(components[0])
+    if app_name == "Mozilla Firefox" and len(components) > 1:
+        components[1] = get_icon_for_app(components[1])
     shortened_components = get_shortened_components(components)
     return "  ".join(shortened_components)
 
