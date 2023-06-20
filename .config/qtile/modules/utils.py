@@ -1,9 +1,10 @@
+import subprocess
 import alsaaudio
 import dbus
 import re
-from libqtile.log_utils import logger
 from Xlib import display as xdisplay
 from .settings import Settings
+from libqtile import hook
 
 session_bus = dbus.SessionBus()
 
@@ -31,7 +32,7 @@ def get_number_of_screens():
                 preferred = monitor.num_preferred
             if preferred:
                 num_screens += 1
-    except Exception as e:
+    except Exception:
         # always setup at least one monitor
         return 1
     else:
@@ -147,6 +148,11 @@ def toggle_mute(qtile):
 # Brightness Control
 
 
+@hook.subscribe.startup_complete
+def restore_brightness():
+    subprocess.run(["brillo", "-I"], check=False)
+
+
 def get_brightness_icon(brightness: float):
     if brightness == 1.0:
         return "notification-display-brightness-full"
@@ -162,18 +168,15 @@ def get_brightness_bar(brightness: float):
 
 
 def change_brightness(qtile, delta: int):
-    clight_name = "org.clight.clight"
-    clight_path = "/org/clight/clight"
-
-    clight_object = session_bus.get_object(clight_name, clight_path)
-    clight_interface = dbus.Interface(clight_object, dbus.PROPERTIES_IFACE)
-
+    cmd = ["brillo"]
     if delta < 0:
-        clight_object.DecBl(-delta / 100, dbus_interface=clight_name)
+        cmd.extend(["-U", str(-delta)])
     else:
-        clight_object.IncBl(delta / 100, dbus_interface=clight_name)
-
-    brightness = round(clight_interface.Get(clight_name, "BlPct"), 2)
+        cmd.extend(["-A", str(delta)])
+    qtile.cmd_spawn(cmd)
+    qtile.cmd_spawn(["brillo", "-O"])
+    result = subprocess.run(["brillo", "-G"], stdout=subprocess.PIPE, check=False)
+    brightness = float(result.stdout.decode("utf-8").strip("\n")) / 100
     send_notification(
         get_brightness_bar(brightness),
         app="changeBrightness",
