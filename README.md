@@ -33,7 +33,7 @@ After that, install the following packages from the AUR.
 ```
 appimagelauncher-git
 betterlockscreen
-clight
+brillo
 cura-bin
 lightdm-settings
 ocs-2url
