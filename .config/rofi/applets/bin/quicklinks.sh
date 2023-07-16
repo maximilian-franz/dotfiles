@@ -69,7 +69,7 @@ run_cmd() {
 	elif [[ "$1" == '--opt2' ]]; then
 		xdg-open 'https://www.github.com/'
 	elif [[ "$1" == '--opt3' ]]; then
-		xdg-open 'https://moodle.hpi.com/'
+		xdg-open 'https://moodle.hpi.de/'
 	elif [[ "$1" == '--opt4' ]]; then
 		xdg-open 'https://calendar.google.com/'
 	elif [[ "$1" == '--opt5' ]]; then
