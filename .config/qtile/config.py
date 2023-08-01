@@ -53,7 +53,7 @@ my_widgets = [
     widget.Spacer(length=5, background=Settings.colors.background),
     widget.KeyboardLayout(
         background=Settings.colors.background_2,
-        configured_keyboards=["de", "us"],
+        configured_keyboards=["de", "us intl"],
         fmt="󰌌 {}",
     ),
     widget.Memory(

@@ -70,7 +70,7 @@ class Gruvbox:
 class Commands:
     """Custom Command Settings"""
 
-    launcher = str(CONFIG_DIR / "rofi" / "scripts" / "launcher_t3")
+    launcher = str(CONFIG_DIR / "rofi" / "scripts" / "launcher_t4")
     lock = "betterlockscreen -l"
     power_menu = str(CONFIG_DIR / "rofi" / "scripts" / "powermenu_t4")
     quicklinks = str(CONFIG_DIR / "rofi" / "applets" / "bin" / "quicklinks.sh")
