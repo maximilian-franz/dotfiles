@@ -1,5 +1,6 @@
 import importlib
 import sys
+import os
 from libqtile import bar, layout, widget
 from libqtile.config import Click, Drag, Group, Key, KeyChord, Match, Screen
 from libqtile.lazy import lazy
@@ -43,31 +44,20 @@ my_widgets = [
         highlight_method="block",
         inactive=Settings.colors.foreground_4,
         rounded=False,
-        this_current_screen_border=Settings.colors.green_hard,
+        this_current_screen_border=Settings.colors.accent,
         this_screen_border=Settings.colors.background_2,
+        other_current_screen_border=Settings.colors.accent,
+        other_screen_border=Settings.colors.background_2,
         padding=5,
     ),
     widget.WindowName(parse_text=parse_window_name),
     widget.Chord(),
-    widget.Systray(background=Settings.colors.background, padding=10),
-    widget.Spacer(length=5, background=Settings.colors.background),
-    widget.KeyboardLayout(
-        background=Settings.colors.background_2,
-        configured_keyboards=["de", "us intl"],
-        fmt="󰌌 {}",
-    ),
-    widget.Memory(
-        background=Settings.colors.background_3,
-        format="󰍛 {MemPercent}%",
-    ),
-    widget.CPU(
-        background=Settings.colors.background_4,
-        format="󰻠 {load_percent}%",
-    ),
+    widget.Systray(padding=10),
+    widget.Spacer(length=5),
     widget.Clock(
         font=Settings.font + " bold",
         format="󰃭 %a %m/%d 󰥔 %H:%M:%S",
-        background=Settings.colors.green_hard,
+        background=Settings.colors.accent,
         foreground=Settings.colors.background_1,
     ),
 ]
@@ -159,7 +149,7 @@ keys = [
             Key([], "j", lazy.layout.shuffle_down(), desc="Move window down"),
             Key([], "k", lazy.layout.shuffle_up(), desc="Move window up"),
         ],
-        name="Move Window",
+        name="move",
         mode=True,
     ),
     KeyChord(
@@ -171,7 +161,7 @@ keys = [
             Key([], "j", lazy.layout.grow_down(), desc="Grow window down"),
             Key([], "k", lazy.layout.grow_up(), desc="Grow window up"),
         ],
-        name="Grow Window",
+        name="grow",
         mode=True,
     ),
     Key(

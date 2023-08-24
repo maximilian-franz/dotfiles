@@ -35,6 +35,7 @@ class Gruvbox:
         aqua_soft = "#8EC07C"
         orange_hard = "#D65D0E"
         orange_soft = "#FE8019"
+        accent = green_hard
 
     class Light:
         """Gruvbox Color Scheme Light Variant"""
@@ -65,6 +66,7 @@ class Gruvbox:
         aqua_soft = "#427B58"
         orange_hard = "#D65D0E"
         orange_soft = "#AF3A03"
+        accent = orange_hard
 
 
 class Commands:
@@ -105,4 +107,8 @@ class Settings:
     }
     max_window_name_component_length = 50
     mod_key = "mod4"
-    wallpaper = CONFIG_DIR / "wallpapers" / "gruvbox_anime-gruv-dark.png"
+    wallpaper = (
+        CONFIG_DIR
+        / "wallpapers"
+        / f"gruvbox_anime-gruv-{'dark' if colors == Gruvbox.Dark else 'light'}.png"
+    )
