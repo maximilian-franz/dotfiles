@@ -87,6 +87,8 @@ def get_shortened_components(components: list[str]):
 
 
 def parse_window_name(raw_name: str):
+    if not raw_name:
+        return raw_name
     components = list(reversed(re.split(r"\s+[-־᠆‐‑‒–—―﹘﹣－·•]\s+", raw_name)))
     app_name = components[0]
     components[0] = get_icon_for_app(components[0])
