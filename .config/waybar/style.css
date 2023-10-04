@@ -1,0 +1,77 @@
+* {
+    border: none;
+    border-radius: 0;
+    font-family: Hack Nerd Font, sans-serif;
+    font-size: 13px;
+    min-height: 0;
+}
+
+window#waybar {
+    background: @theme_base_color;
+    border-bottom: 1px solid @unfocused_borders;
+    color: @theme_text_color;
+}
+
+tooltip {
+    border-radius: 9999px;
+    text-shadow: none;
+    box-shadow: none;
+}
+
+tooltip * {
+    border-radius: 9999px;
+    text-shadow: none;
+    box-shadow: none;
+}
+
+#workspaces button.active {
+    background-color: #98971A;
+}
+
+#cpu, #memory {
+    background-color: #A89984;
+}
+
+#pulseaudio {
+    background-color: #7C6F64;
+}
+
+#network {
+    background-color: #665C54;
+}
+
+#backlight {
+    background-color: #504945;
+}
+
+#battery {
+    background-color: #3C3836;
+}
+
+#tray {
+    background-color: #32302F;
+}
+
+#clock {
+    background-color: #98971A;
+    color: #3C3836;
+}
+
+#battery.warning, #cpu.warning, #memory.warning {
+    background-color: #D79921;
+    color: #282828;
+}
+
+#battery.critical, #cpu.critical, #memory.critical {
+    background-color: #CC241D;
+}
+
+.modules-right {
+    padding: 4px;
+}
+
+.modules-right * {
+    padding: 0 10px;
+    min-width: 30px;
+    border-radius: 9999px;
+}

@@ -9,6 +9,7 @@
 !.config/fish/
 !.config/gtk-3.0/
 !.config/gtk-4.0/
+!.config/hypr/
 !.config/i3/
 !.config/picom/
 !.config/polybar/
@@ -20,6 +21,7 @@
 !.config/systemd/
 !.config/spicetify/Themes/
 !.config/wallpapers/
+!.config/waybar/
 !.config/xsettingsd/
 !.config/starship.toml
 !.config/clight.conf
