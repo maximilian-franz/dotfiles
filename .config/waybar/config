@@ -1,9 +1,10 @@
 {
     "height": 32,
-    "spacing": 4,
-    "modules-left": ["hyprland/workspaces"],
+    "spacing": 0,
+    "layer": "top",
+    "modules-left": ["hyprland/workspaces", "mpris"],
     "modules-center": ["hyprland/window"],
-    "modules-right": ["cpu", "memory", "pulseaudio", "network", "battery", "tray", "clock"],
+    "modules-right": ["tray", "cpu", "memory", "pulseaudio", "battery", "clock"],
     "hyprland/workspaces": {
         "all-outputs": true
     },
@@ -16,6 +17,7 @@
         "tooltip": false
     },
     "cpu": {
+        "interval": 1,
         "format": "{usage}% ",
         "tooltip": false,
         "states": {
@@ -24,6 +26,7 @@
         }
     },
     "memory": {
+        "interval": 1,
         "format": "{}% ",
         "tooltip": false,
         "states": {
@@ -42,10 +45,10 @@
             "critical": 15
         },
         "format": "{icon}",
-        "tooltip": false,
-        "format-charging": "",
-        "format-plugged": "",
-        "format-icons": ["", "", "", "", ""]
+        "tooltip-format": "{capacity}% ({timeTo})",
+        "format-charging": "󰂄",
+        "format-plugged": "󰚥",
+        "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
     },
     "network": {
         "format-wifi": "{icon}",
@@ -55,19 +58,25 @@
         "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"]
     },
     "pulseaudio": {
-        "format": "{icon}",
-        "format-bluetooth": "{icon} ",
-        "format-bluetooth-muted": "󰖁 {icon} ",
-        "format-muted": "󰖁",
-        "format-source": "{volume}% ",
-        "format-source-muted": "",
-        "format-icons": {
-            "headphone": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
-            "default": ["", "", ""]
-        },
+        "format": "{icon} {format_source}",
+        "format-muted": "󰖁 {format_source}",
+        "format-source": "󰍬",
+        "format-source-muted": "󰍭",
+        "format-icons": ["", "", ""],
         "on-click": "pavucontrol"
+    },
+    "mpris": {
+        "interval": 3,
+        "format": "{player_icon}",
+        "tooltip-format": "{player_icon} {title} - {artist}",
+        "player-icons": {
+            "default": "󰐊",
+            "mpv": "🎵",
+            "spotify": "󰓇",
+            "firefox": "󰈹"
+        },
+        "status-icons": {
+            "paused": "󰏤"
+        }
     }
 }

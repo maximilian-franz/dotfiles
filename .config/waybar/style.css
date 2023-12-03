@@ -8,7 +8,6 @@
 
 window#waybar {
     background: @theme_base_color;
-    border-bottom: 1px solid @unfocused_borders;
     color: @theme_text_color;
 }
 
@@ -24,54 +23,105 @@ tooltip * {
     box-shadow: none;
 }
 
-#workspaces button.active {
-    background-color: #98971A;
+#workspaces {
+    padding: 4px;
 }
 
-#cpu, #memory {
-    background-color: #A89984;
+#workspaces button {
+    background-color: #3c3836;
+}
+
+#workspaces button:first-child {
+    border-top-left-radius: 999px;
+    border-bottom-left-radius: 999px;
+}
+
+#workspaces button:last-child {
+    border-top-right-radius: 999px;
+    border-bottom-right-radius: 999px;
+}
+
+#workspaces button.active {
+    background-color: #98971a;
+}
+
+#cpu {
+    background-color: #7c6f64;
+    border-top-left-radius: 999px;
+    border-bottom-left-radius: 999px;
+}
+
+#memory {
+    background-color: #665c54;
 }
 
 #pulseaudio {
-    background-color: #7C6F64;
-}
-
-#network {
-    background-color: #665C54;
-}
-
-#backlight {
     background-color: #504945;
 }
 
 #battery {
-    background-color: #3C3836;
+    background-color: #3c3836;
+    border-top-right-radius: 999px;
+    border-bottom-right-radius: 999px;
 }
 
 #tray {
-    background-color: #32302F;
+    background-color: #32302f;
+    border-radius: 999px;
+    margin-right: 4px;
+}
+
+#tray window,
+#tray decoration {
+    border-radius: 8px;
+}
+#tray menu {
+    border-radius: 8px;
+    padding: 8px 0px;
 }
 
 #clock {
-    background-color: #98971A;
-    color: #3C3836;
+    background-color: #98971a;
+    color: #3c3836;
+    border-radius: 999px;
+    margin-left: 4px;
 }
 
-#battery.warning, #cpu.warning, #memory.warning {
-    background-color: #D79921;
+#mpris {
+    margin: 4px;
+    margin-left: 0px;
+    min-width: 45px;
+    border-radius: 999px;
+    background-color: #504945;
+}
+
+#mpris.spotify {
+    background-color: #98971a;
+}
+
+#mpris.firefox {
+    background-color: #d65d0e;
+}
+
+#battery.warning,
+#cpu.warning,
+#memory.warning {
+    background-color: #d79921;
     color: #282828;
 }
 
-#battery.critical, #cpu.critical, #memory.critical {
-    background-color: #CC241D;
+#battery.critical,
+#cpu.critical,
+#memory.critical {
+    background-color: #cc241d;
 }
 
 .modules-right {
     padding: 4px;
 }
 
-.modules-right * {
+.modules-right box,
+.modules-right label {
     padding: 0 10px;
     min-width: 30px;
-    border-radius: 9999px;
 }

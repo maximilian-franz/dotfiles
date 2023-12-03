@@ -1,6 +1,6 @@
 [Unit]
 Description=cbatticon
-After=network.target
+After=graphical.target
 
 [Service]
 Type=simple

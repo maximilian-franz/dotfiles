@@ -2,9 +2,10 @@
 Description=EOS update notifier runs periodically (weekly) and soon after a reboot
 
 [Timer]
-OnStartupSec=300 seconds
+RandomizedDelaySec=10min
+OnStartupSec=30sec
 OnCalendar=daily
-# Persistent=true
+
  
 [Install]
 WantedBy=timers.target

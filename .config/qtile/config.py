@@ -54,9 +54,15 @@ my_widgets = [
     widget.Chord(),
     widget.Systray(padding=10),
     widget.Spacer(length=5),
+    # widget.Wttr(
+    #     format="%t %C",
+    #     font=Settings.font + " bold",
+    #     background=Settings.colors.accent,
+    #     foreground=Settings.colors.background_1,
+    # ),
     widget.Clock(
-        font=Settings.font + " bold",
         format="󰃭 %a %m/%d 󰥔 %H:%M:%S",
+        font=Settings.font + " bold",
         background=Settings.colors.accent,
         foreground=Settings.colors.background_1,
     ),
@@ -116,7 +122,7 @@ floating_layout = layout.Floating(
         Match(wm_class="blueman-manager"),  # blueman-manager
         Match(wm_class="pavucontrol"),  # pavucontrol
         Match(wm_class="feh"),  # feh
-        Match(wm_class="gnome-calculator"),  # gnome-calculator
+        Match(wm_class="galculator"),  # galculator
         Match(wm_class="Steam", title="Friends List"),  # Steam Friends List
         Match(title="branchdialog"),  # gitk
         Match(title="pinentry"),  # GPG key password entry
@@ -190,7 +196,7 @@ keys = [
         desc="Open the power menu",
     ),
     Key(
-        [Settings.mod_key],
+        [Settings.mod_key, "control"],
         "l",
         lazy.spawn(Settings.commands.lock),
         desc="Lock the screen",

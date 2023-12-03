@@ -175,8 +175,8 @@ def change_brightness(qtile, delta: int):
         cmd.extend(["-U", str(-delta)])
     else:
         cmd.extend(["-A", str(delta)])
-    qtile.cmd_spawn(cmd)
-    qtile.cmd_spawn(["brillo", "-O"])
+    qtile.spawn(cmd)
+    qtile.spawn(["brillo", "-O"])
     result = subprocess.run(["brillo", "-G"], stdout=subprocess.PIPE, check=False)
     brightness = float(result.stdout.decode("utf-8").strip("\n")) / 100
     send_notification(
