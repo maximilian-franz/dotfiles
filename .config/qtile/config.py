@@ -1,6 +1,5 @@
 import importlib
 import sys
-import os
 from libqtile import bar, layout, widget
 from libqtile.config import Click, Drag, Group, Key, KeyChord, Match, Screen
 from libqtile.lazy import lazy
@@ -22,6 +21,7 @@ from modules.utils import (
     get_number_of_screens,
     parse_window_name,
     toggle_mute,
+    float_to_front,
 )
 
 auto_minimize = False
@@ -206,6 +206,12 @@ keys = [
         "v",
         lazy.spawn(Settings.commands.quicklinks),
         desc="Show quick links",
+    ),
+    Key(
+        [Settings.mod_key, "shift"],
+        "f",
+        float_to_front,
+        desc="Bring floating windows to front",
     ),
     Key([], "XF86AudioRaiseVolume", lazy.function(change_volume, 2)),
     Key([], "XF86AudioLowerVolume", lazy.function(change_volume, -2)),

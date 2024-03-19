@@ -5,6 +5,7 @@ import re
 from Xlib import display as xdisplay
 from .settings import Settings
 from libqtile import hook
+from libqtile.lazy import lazy
 
 session_bus = dbus.SessionBus()
 
@@ -184,3 +185,11 @@ def change_brightness(qtile, delta: int):
         app="changeBrightness",
         icon_name=get_brightness_icon(brightness),
     )
+
+
+@lazy.function
+def float_to_front(qtile):
+    for group in qtile.groups:
+        for window in group.windows:
+            if window.floating:
+                window.cmd_bring_to_front()
