@@ -18,7 +18,7 @@ Run the following to clone the repository.
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME' >> $HOME/.bashrc && \
 source .bashrc && \
 echo ".dotfiles" >> .gitignore && \
-git clone --bare git@github.com:maximilian-franz/private-dotfiles.git $HOME/.dotfiles && \
+git clone --bare https://github.com/maximilian-franz/dotfiles.git $HOME/.dotfiles && \
 config config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*" && \
 config config --local status.showUntrackedFiles no && \
 config checkout
